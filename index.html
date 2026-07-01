@@ -460,7 +460,8 @@ section{padding:96px 0}
 .gal-head{text-align:center;margin-bottom:48px}
 .lb{position:fixed;inset:0;z-index:2000;background:rgba(6,12,7,.97);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
 .lb.open{opacity:1;pointer-events:all}
-.lb-img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:var(--r);box-shadow:0 40px 100px rgba(0,0,0,.7)}
+.lb-img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:var(--r);box-shadow:0 40px 100px rgba(0,0,0,.7);cursor:grab;user-select:none;touch-action:pan-y}
+.lb-img.lb-dragging{cursor:grabbing;transition:none}
 .lb-close{position:absolute;top:22px;right:26px;background:none;border:none;cursor:pointer;color:rgba(242,237,228,.6);font-size:1.6rem;line-height:1;transition:color .2s}
 .lb-close:hover{color:var(--gold)}
 .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(196,154,42,.15);border:1px solid rgba(196,154,42,.28);color:var(--cream);width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;backdrop-filter:blur(8px)}
@@ -1658,19 +1659,13 @@ body  { overflow-x: hidden; }
 #difs .dif-t { color:var(--dark); }
 #difs .dif-d { color:rgba(30,56,42,.6); }
 
-/* FACHADA — creme + palmeira canto sup esquerdo */
+/* FACHADA — creme plano, sem marca d'água */
 #fachada {
-  background:linear-gradient(160deg,#F0EBE4 0%,#e9e1d6 100%);
+  background:var(--cream);
   position:relative; overflow:hidden;
 }
 #fachada::before {
-  content:''; position:absolute; top:0; left:0;
-  opacity:.06; pointer-events:none;
-  -webkit-mask:var(--lm5) no-repeat left -30px top -20px/auto 75%;
-  mask:var(--lm5) no-repeat left -30px top -20px/auto 75%;
-  background-color:var(--dark);
-  width:100%; height:100%;
-  filter: blur(36px);
+  content:none;
 }
 #fachada .container { position:relative; z-index:1; }
 #fachada .s-tag { color:var(--petrol); }
@@ -1719,18 +1714,23 @@ body  { overflow-x: hidden; }
   color:rgba(240,235,228,.78);
 }
 
-/* LOCALIZAÇÃO — creme + palmeira dupla canto inf direito */
+/* LOCALIZAÇÃO — creme + palmeira dupla canto inf direito (suave) */
 #loc {
-  background:linear-gradient(135deg,#EDE5DA 0%,#F0EBE4 60%,#e8ddd2 100%);
+  background:var(--cream);
   position:relative; overflow:hidden;
 }
-#loc::after {
+#loc::before {
   content:''; position:absolute; bottom:0; right:0;
-  opacity:.07; pointer-events:none;
+  opacity:.065; pointer-events:none;
   -webkit-mask:var(--lm2) no-repeat right -20px bottom -30px/70% auto;
   mask:var(--lm2) no-repeat right -20px bottom -30px/70% auto;
   background-color:var(--dark);
   width:100%; height:100%;
+  filter: blur(26px);
+}
+#loc::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(ellipse 60% 55% at bottom right, transparent 0%, var(--cream) 78%);
 }
 #loc .container { position:relative; z-index:1; }
 #loc .s-tag { color:var(--petrol); }
@@ -1790,13 +1790,7 @@ body  { overflow-x: hidden; }
 /* PLANTAS — creme + monstera multi canto sup direito */
 #plantas { background:var(--cream); position:relative; overflow:hidden; }
 #plantas::after {
-  content:''; position:absolute; top:0; right:0;
-  opacity:.055; pointer-events:none;
-  -webkit-mask:var(--lm3) no-repeat right -30px top -20px/48% auto;
-  mask:var(--lm3) no-repeat right -30px top -20px/48% auto;
-  background-color:var(--dark);
-  width:100%; height:100%;
-  filter: blur(36px);
+  content:none;
 }
 #plantas .container { position:relative; z-index:1; }
 #plantas .s-h { color:var(--dark); }
@@ -2233,9 +2227,10 @@ body  { overflow-x: hidden; }
   aspect-ratio: 4/5; background: rgba(240,235,228,.05);
   border: 1.5px solid rgba(203,152,66,.22);
 }
-.cg-track { display: flex; height: 100%; transition: transform .45s var(--ease); }
+.cg-track { display: flex; height: 100%; transition: transform .45s var(--ease); cursor: grab; user-select: none; }
+.cg-track.cg-dragging { transition: none; cursor: grabbing; }
 .cg-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
-.cg-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cg-slide img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
 .cg-slide.cg-empty {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 10px; text-align: center; padding: 24px;
@@ -2986,12 +2981,23 @@ function buildGal() {
     galItems.push({ src: img.src, cap: lbl ? lbl.textContent : '' });
   });
 }
+function buildCgGal() {
+  galItems = [];
+  document.querySelectorAll('.cg-slide img').forEach(img => {
+    galItems.push({ src: img.src, cap: (img.alt || '').replace(/^Park Residence\s*[—-]\s*/, '') });
+  });
+}
 function openLb(idx) { buildGal(); lbIdx = idx; updLb(); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function openLbFrom(builder, idx) { builder(); lbIdx = idx; updLb(); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
 function updLb() { lbImg.src = galItems[lbIdx].src; lbCap.textContent = (lbIdx+1) + ' / ' + galItems.length + ' — ' + galItems[lbIdx].cap; }
 function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
 document.querySelectorAll('.gal-item').forEach((item, i) => item.addEventListener('click', () => openLb(i)));
 const fc = document.getElementById('fachada-click');
 if(fc) fc.addEventListener('click', () => openLb(0));
+document.querySelectorAll('.cg-slide img').forEach((img, i) => {
+  img.style.cursor = 'zoom-in';
+  img.addEventListener('click', () => { if (!window.__cgWasDragging) openLbFrom(buildCgGal, i); });
+});
 document.getElementById('lb-close').addEventListener('click', closeLb);
 document.getElementById('lb-prev').addEventListener('click', () => { lbIdx = (lbIdx-1+galItems.length)%galItems.length; updLb(); });
 document.getElementById('lb-next').addEventListener('click', () => { lbIdx = (lbIdx+1)%galItems.length; updLb(); });
@@ -3005,6 +3011,39 @@ document.addEventListener('keydown', e => {
 let tsx=0;
 lb.addEventListener('touchstart',e=>{tsx=e.touches[0].clientX},{passive:true});
 lb.addEventListener('touchend',e=>{const dx=tsx-e.changedTouches[0].clientX;if(Math.abs(dx)>50){lbIdx=dx>0?(lbIdx+1)%galItems.length:(lbIdx-1+galItems.length)%galItems.length;updLb();}},{passive:true});
+
+// Arrastar a imagem em tela cheia com mouse (touch já coberto acima)
+(function() {
+  var lbDragging = false, lbStartX = 0, lbDX = 0;
+  lbImg.addEventListener('pointerdown', function(e) {
+    if (e.pointerType === 'touch') return; // touch já tratado por touchstart/touchend
+    lbDragging = true;
+    lbStartX = e.clientX;
+    lbDX = 0;
+    lbImg.classList.add('lb-dragging');
+    lbImg.setPointerCapture(e.pointerId);
+  });
+  lbImg.addEventListener('pointermove', function(e) {
+    if (!lbDragging) return;
+    lbDX = e.clientX - lbStartX;
+    lbImg.style.transform = 'translateX(' + lbDX + 'px)';
+  });
+  function lbEndDrag() {
+    if (!lbDragging) return;
+    lbDragging = false;
+    lbImg.classList.remove('lb-dragging');
+    lbImg.style.transform = '';
+    if (Math.abs(lbDX) > 70) {
+      lbIdx = lbDX < 0 ? (lbIdx+1)%galItems.length : (lbIdx-1+galItems.length)%galItems.length;
+      updLb();
+    }
+    lbDX = 0;
+  }
+  lbImg.addEventListener('pointerup', lbEndDrag);
+  lbImg.addEventListener('pointercancel', lbEndDrag);
+  lbImg.addEventListener('pointerleave', function() { if (lbDragging) lbEndDrag(); });
+  lbImg.addEventListener('dragstart', function(e) { e.preventDefault(); });
+})();
 
 
 // ── AMBIENTES SLIDER ──────────────────────────────────────────
@@ -3073,120 +3112,6 @@ lb.addEventListener('touchend',e=>{const dx=tsx-e.changedTouches[0].clientX;if(M
 
 
 
-
-
-// ── SLIDER + LIGHTBOX (navegação completa) ───────────────────
-(function() {
-
-  // ── Coleta todos os slides do carrossel de ambientes
-  function getSlides() {
-    return Array.from(document.querySelectorAll('#amb-track .amb-slide'));
-  }
-
-  function getCurrentIdx() {
-    var slides = getSlides();
-    for (var i = 0; i < slides.length; i++) {
-      if (slides[i].classList.contains('active')) return i;
-    }
-    return 0;
-  }
-
-  // ── Lightbox state
-  var lbIdx = 0;
-
-  function lbShow(idx) {
-    var slides = getSlides();
-    if (!slides.length) return;
-    lbIdx = (idx + slides.length) % slides.length;
-    var img = slides[lbIdx].querySelector('img');
-    var lbl = slides[lbIdx].querySelector('.amb-label');
-    var lbImg = document.getElementById('lb-img');
-    var lbCap = document.getElementById('lb-cap');
-    if (lbImg && img && img.src) {
-      lbImg.src = img.src;
-    }
-    if (lbCap && lbl) {
-      lbCap.textContent = (lbIdx + 1) + ' / ' + slides.length + ' — ' + lbl.textContent;
-    }
-  }
-
-  function lbOpen(startIdx) {
-    var lbEl = document.getElementById('lb');
-    if (!lbEl) return;
-    lbShow(startIdx);
-    lbEl.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function lbClose() {
-    var lbEl = document.getElementById('lb');
-    if (!lbEl) return;
-    lbEl.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  // ── Wire prev/next buttons inside lightbox
-  var lbPrev = document.getElementById('lb-prev');
-  var lbNext = document.getElementById('lb-next');
-  var lbClose_btn = document.getElementById('lb-close');
-
-  if (lbPrev) lbPrev.addEventListener('click', function(e) {
-    e.stopPropagation();
-    lbShow(lbIdx - 1);
-  });
-  if (lbNext) lbNext.addEventListener('click', function(e) {
-    e.stopPropagation();
-    lbShow(lbIdx + 1);
-  });
-  if (lbClose_btn) lbClose_btn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    lbClose();
-  });
-
-  // Click outside image closes
-  var lbEl = document.getElementById('lb');
-  if (lbEl) {
-    lbEl.addEventListener('click', function(e) {
-      if (e.target === lbEl) lbClose();
-    });
-  }
-
-  // Keyboard
-  document.addEventListener('keydown', function(e) {
-    if (!lbEl || !lbEl.classList.contains('open')) return;
-    if (e.key === 'Escape')      lbClose();
-    if (e.key === 'ArrowLeft')   lbShow(lbIdx - 1);
-    if (e.key === 'ArrowRight')  lbShow(lbIdx + 1);
-  });
-
-  // Touch swipe inside lightbox
-  var lbTsx = 0;
-  if (lbEl) {
-    lbEl.addEventListener('touchstart', function(e) { lbTsx = e.touches[0].clientX; }, {passive:true});
-    lbEl.addEventListener('touchend', function(e) {
-      var dx = lbTsx - e.changedTouches[0].clientX;
-      if (Math.abs(dx) > 40) lbShow(dx > 0 ? lbIdx + 1 : lbIdx - 1);
-    }, {passive:true});
-  }
-
-  // ── Click on slider opens lightbox at current slide
-  var wrap = document.querySelector('.amb-wrap');
-  if (wrap) {
-    wrap.addEventListener('click', function(e) {
-      if (e.target.closest('.amb-arrow')) return;
-      if (e.target.closest('.amb-bar'))   return;
-      if (e.target.closest('.amb-dots'))  return;
-      lbOpen(getCurrentIdx());
-    });
-
-    var track = document.getElementById('amb-track');
-    if (track) track.style.cursor = 'zoom-in';
-    document.querySelectorAll('.amb-arrow').forEach(function(a) {
-      a.style.cursor = 'pointer';
-    });
-  }
-
-})();
 
 
 
@@ -3431,14 +3356,62 @@ lb.addEventListener('touchend',e=>{const dx=tsx-e.changedTouches[0].clientX;if(M
     var dots = document.querySelectorAll('.cg-dot');
     if (!track || !dots.length) return;
     window.__cgIdx = 0;
+
+    var autoTimer;
+    function startAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(function() { gotoCond((window.__cgIdx + 1) % dots.length); }, 5500);
+    }
+
     window.gotoCond = function(n) {
       window.__cgIdx = n;
       track.style.transform = 'translateX(-' + (n * 100) + '%)';
       dots.forEach(function(d, i) { d.classList.toggle('active', i === n); });
     };
-    window.gotoCondPrev = function() { gotoCond((window.__cgIdx - 1 + dots.length) % dots.length); };
-    window.gotoCondNext = function() { gotoCond((window.__cgIdx + 1) % dots.length); };
-    setInterval(function() { gotoCond((window.__cgIdx + 1) % dots.length); }, 5500);
+    window.gotoCondPrev = function() { gotoCond((window.__cgIdx - 1 + dots.length) % dots.length); startAuto(); };
+    window.gotoCondNext = function() { gotoCond((window.__cgIdx + 1) % dots.length); startAuto(); };
+
+    // Arraste com mouse/touch (Pointer Events cobre os dois)
+    var dragging = false, startX = 0, deltaX = 0, trackWidth = 1;
+    track.addEventListener('pointerdown', function(e) {
+      dragging = true;
+      startX = e.clientX;
+      deltaX = 0;
+      window.__cgWasDragging = false;
+      trackWidth = track.clientWidth || 1;
+      track.classList.add('cg-dragging');
+      track.setPointerCapture(e.pointerId);
+      clearInterval(autoTimer);
+    });
+    track.addEventListener('pointermove', function(e) {
+      if (!dragging) return;
+      deltaX = e.clientX - startX;
+      if (Math.abs(deltaX) > 6) window.__cgWasDragging = true;
+      var pct = (deltaX / trackWidth) * 100;
+      track.style.transform = 'translateX(calc(-' + (window.__cgIdx * 100) + '% + ' + deltaX + 'px))';
+    });
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      track.classList.remove('cg-dragging');
+      var threshold = trackWidth * 0.12;
+      if (deltaX <= -threshold) {
+        gotoCond((window.__cgIdx + 1) % dots.length);
+      } else if (deltaX >= threshold) {
+        gotoCond((window.__cgIdx - 1 + dots.length) % dots.length);
+      } else {
+        gotoCond(window.__cgIdx);
+      }
+      deltaX = 0;
+      startAuto();
+      setTimeout(function() { window.__cgWasDragging = false; }, 50);
+    }
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    track.addEventListener('pointerleave', function() { if (dragging) endDrag(); });
+    track.addEventListener('dragstart', function(e) { e.preventDefault(); });
+
+    startAuto();
   })();
 
 
