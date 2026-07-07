@@ -183,6 +183,7 @@ a{color:inherit;text-decoration:none}
 }
 .btn-terra{background:var(--terra);color:#fff;border-color:var(--terra)}
 .btn-terra:hover{background:#b25a2a;transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,107,58,.35)}
+.btn-no-glow,.btn-no-glow:hover{box-shadow:none!important}
 .btn-outline-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
 .btn-outline-light:hover{background:#fff;color:var(--dark);transform:translateY(-2px)}
 #engefor .btn-outline-light{color:var(--dark);border-color:rgba(51,36,26,.4)}
@@ -923,7 +924,7 @@ section{padding:96px 0}
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
   padding: 28px 16px;
   border-right: 1px solid rgba(196,154,42,.14);
@@ -1279,7 +1280,7 @@ section{padding:96px 0}
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-align: center;
     min-width: 0;
     box-sizing: border-box;
@@ -1561,12 +1562,11 @@ body  { overflow-x: hidden; }
 
 /* ── AMB-BAR: barra escura abaixo do slider com os dots ── */
 .amb-bar {
-  background: var(--dark);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 14px 0;
-  border-top: 1px solid rgba(196,154,42,.1);
 }
 
 /* Dots — agora na barra, não sobre a imagem */
@@ -2529,10 +2529,10 @@ body  { overflow-x: hidden; }
 <div id="strip">
 <div class="container"><div class="strip-in">
 <div class="si"><div class="sin">3</div><div class="sil">Torres exclusivas</div></div>
-<div class="si"><div class="sin">R$ 350<sup style="font-size:.52em">*</sup></div><div class="sil">Parcelas a partir de</div><div class="sia">*Consulte condições</div></div>
-<div class="si"><div class="sin">76x<sup style="font-size:.52em">*</sup></div><div class="sil">Entrada parcelada em até</div><div class="sia">*Consulte condições</div></div>
-<div class="si"><div class="sin">Grátis</div><div class="sil">ITBI e Registro</div></div>
 <div class="si"><div class="sin">R$ 500<sup style="font-size:.52em">*</sup></div><div class="sil">Sinal a partir de</div><div class="sia">*Consulte condições</div></div>
+<div class="si"><div class="sin">60x<sup style="font-size:.52em">*</sup></div><div class="sil">Entrada em até</div><div class="sia">*Consulte condições</div></div>
+<div class="si"><div class="sin">R$ 895<sup style="font-size:.52em">*</sup></div><div class="sil">Parcelas a partir de</div><div class="sia">*Consulte condições</div></div>
+<div class="si"><div class="sin">Grátis<sup style="font-size:.52em">*</sup></div><div class="sil">ITBI e Registro</div><div class="sia">*Consulte condições</div></div>
 </div></div>
 </div>
 <section id="lazer">
@@ -2605,7 +2605,7 @@ body  { overflow-x: hidden; }
 </div>
 </div>
 <div class="container">
-<div class="rv" style="text-align:center;margin-top:8px"><a class="btn btn-terra" href="https://wa.me/5515998971515?text=Quero saber mais sobre o *Green Park Resort,* por favor!" rel="noopener" target="_blank">Conhecer o resort completo</a></div>
+<div class="rv" style="display:flex;justify-content:center;align-items:center;width:100%;margin:8px auto 0;text-align:center"><a class="btn btn-terra btn-no-glow" href="https://wa.me/5515998971515?text=Quero saber mais sobre o *Green Park Resort,* por favor!" rel="noopener" target="_blank">Conhecer o resort completo</a></div>
 </div>
 </section>
 <section id="loc">
@@ -2751,7 +2751,8 @@ body  { overflow-x: hidden; }
 </div>
 </div>
 </section>
-<section id="obra" style="padding:80px 0">
+<!-- OCULTO A PEDIDO DO CLIENTE (10/07/2026): manter no HTML, esta seção volta quando a evolução da obra for retomada. Não excluir. -->
+<section id="obra" style="padding:80px 0;display:none">
 <div class="container">
 <div class="obra-card rv" style="max-width:720px;margin:0 auto">
 <p class="s-tag">Transparência total</p>
