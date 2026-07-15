@@ -447,7 +447,7 @@ section{padding:96px 0}
 /* =============================================
    FACHADA
    ============================================= */
-#fachada{background:var(--dark)}
+#fachada{background:var(--dark);position:relative;overflow:hidden}
 .fachada-in{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 .fachada-img{border-radius:var(--rl);overflow:hidden;position:relative;cursor:zoom-in}
 .fachada-img img{width:100%;height:640px;object-fit:cover;display:block;transition:transform .65s var(--ease)}
@@ -518,7 +518,7 @@ section{padding:96px 0}
 /* =============================================
    LAZER
    ============================================= */
-#lazer{background:var(--cream)}
+#lazer{background:var(--cream);position:relative;overflow:hidden}
 .lazer-head{text-align:center;margin-bottom:48px}
 .lazer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .li{
@@ -554,31 +554,31 @@ section{padding:96px 0}
    FORM FINAL
    ============================================= */
 #form-final{
-  background:linear-gradient(148deg,#130d09 0%,var(--dark) 55%,rgba(107,93,82,.28) 100%);
+  background:var(--cream);
   position:relative;overflow:hidden
 }
-#form-final::before{content:'';position:absolute;top:-120px;right:-120px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(196,154,42,.06) 0%,transparent 65%);pointer-events:none}
+#form-final::before{content:'';position:absolute;top:-120px;right:-120px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(196,154,42,.1) 0%,transparent 65%);pointer-events:none}
 .ff-in{max-width:600px;margin:0 auto;text-align:center}
-.ff-title{font-size:clamp(2rem,3.6vw,3.2rem);font-weight:300;color:var(--cream);line-height:1.1;margin-bottom:10px;letter-spacing:-.01em}
-.ff-title em{font-style:normal;color:var(--gold);font-weight:600}
+.ff-title{font-size:clamp(2rem,3.6vw,3.2rem);font-weight:300;color:var(--dark);line-height:1.1;margin-bottom:10px;letter-spacing:-.01em}
+.ff-title em{font-style:normal;color:var(--terra);font-weight:600}
 
 .urg-dot{width:6px;height:6px;border-radius:50%;background:var(--terra);animation:blink 1.5s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.ff-wrap{background:rgba(255,255,255,.03);border:1px solid rgba(196,154,42,.16);border-radius:var(--rl);padding:34px 30px;text-align:left}
+.ff-wrap{background:#fff;border:1px solid rgba(51,36,26,.1);box-shadow:0 20px 60px rgba(51,36,26,.08);border-radius:var(--rl);padding:34px 30px;text-align:left}
 .ff-cta{display:flex;gap:11px;margin-top:14px}
 .ff-cta .btn{flex:1}
 
 /* =============================================
    FOOTER
    ============================================= */
-#footer{background:#2b1c12;border-top:1px solid rgba(196,154,42,.09);padding:48px 0 24px}
+#footer{background:var(--brown);border-top:1px solid rgba(196,154,42,.35);padding:48px 0 24px}
 .ft-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:44px;margin-bottom:32px}
 .ft-logo-img{height:36px;width:auto;opacity:.9;margin-bottom:14px}
 .ft-brand p{font-size:.78rem;color:rgba(242,237,228,.60);line-height:1.75;font-weight:300}
 .ft-col h5{font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
 .ft-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
-.ft-col ul li{font-size:.78rem;color:rgba(242,237,228,.38);line-height:1.5;font-weight:300}
-.ft-col ul li strong{color:rgba(242,237,228,.7);font-weight:600}
+.ft-col ul li{font-size:.78rem;color:rgba(242,237,228,.75);line-height:1.5;font-weight:300}
+.ft-col ul li strong{color:rgba(242,237,228,.95);font-weight:600}
 .ft-col a:hover{color:var(--gold)}
 .ft-btm{border-top:1px solid rgba(196,154,42,.06);padding-top:22px}
 .ft-logos{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
@@ -1688,6 +1688,8 @@ body  { overflow-x: hidden; }
   background:linear-gradient(135deg,#F0EBE4 0%,#ebe3d7 50%,#F0EBE4 100%);
   border-top:2px solid var(--gold);
   border-bottom:2px solid var(--gold);
+  position:relative;
+  z-index:2;
 }
 #strip .sin { color:var(--dark); font-weight:700; }
 #strip .sil { color:var(--petrol); }
@@ -1881,24 +1883,24 @@ body  { overflow-x: hidden; }
 
 /* FORM FINAL — verde + palmeira dupla canto sup direito (clara) */
 #form-final {
-  background:linear-gradient(135deg,#33241A 0%,#241610 100%);
+  background:var(--cream);
   position:relative; overflow:hidden;
 }
 #form-final::after {
   content:''; position:absolute; top:0; right:0;
-  opacity:.07; pointer-events:none;
+  opacity:.1; pointer-events:none;
   -webkit-mask:var(--lm2) no-repeat right -20px top -20px/50% auto;
   mask:var(--lm2) no-repeat right -20px top -20px/50% auto;
-  background-color:var(--cream);
+  background-color:var(--dark);
   width:100%; height:100%;
   filter: blur(18px);
 }
 #form-final .container { position:relative; z-index:1; }
-#form-final label { color:rgba(240,235,228,.75); }
-#form-final .disc { color:rgba(240,235,228,.45) !important; }
+#form-final label { color:rgba(51,36,26,.55); }
+#form-final .disc { color:rgba(51,36,26,.5) !important; }
 
 /* FOOTER — preto + palmeira sutil */
-#footer { background:#2b1c12; position:relative; overflow:hidden; }
+#footer { background:var(--brown); position:relative; overflow:hidden; }
 #footer::after {
   content:''; position:absolute; bottom:0; right:0;
   opacity:.05; pointer-events:none;
@@ -2040,8 +2042,16 @@ body  { overflow-x: hidden; }
 .pt-caption-label { color: var(--cream); }
 
 /* FORM FINAL — label do form com sage */
-#form-final .ff-title em { color: var(--gold); }
-#form-final .frow label { color: rgba(240,235,228,.78); }
+#form-final .ff-title em { color: var(--terra); }
+#form-final .frow label { color: rgba(51,36,26,.6); }
+#form-final .frow input,
+#form-final .frow select {
+  background: rgba(51,36,26,.03);
+  border-color: rgba(51,36,26,.15);
+  color: var(--dark);
+}
+#form-final .frow input::placeholder { color: rgba(51,36,26,.35); }
+#form-final .frow select option { background: #fff; color: var(--dark); }
 
 /* BOTÕES — btn-terra mais rico */
 .btn-terra {
@@ -2207,6 +2217,17 @@ body  { overflow-x: hidden; }
 #form-final .section-watermark {
   opacity: .035;
   filter: brightness(2);
+}
+.leaf-decor {
+  position: absolute;
+  top: -30px; right: -40px;
+  width: 220px; height: auto;
+  opacity: .92;
+  pointer-events: none;
+  z-index: 2;
+}
+@media (max-width: 768px) {
+  .leaf-decor { width: 130px; top: -16px; right: -20px; }
 }
 
 /* ── PLANTAS LIGHTBOX OVERLAY ───────────────────────────── */
@@ -2438,10 +2459,18 @@ body  { overflow-x: hidden; }
   display: grid;
   grid-template-columns: minmax(300px, 380px) 1fr;
   gap: 36px;
-  align-items: stretch;
+  align-items: start;
 }
 .pt-side .pt-panels { order: 2; margin: 0; }
 .pt-side .pt-topicos { order: 1; margin: 0; display: flex; flex-direction: column; justify-content: center; }
+@media (min-width: 901px) {
+  .pt-side .pt-panels {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+    transition: top .2s ease;
+  }
+}
 .pt-topicos {
   padding: 44px 36px;
   background: linear-gradient(160deg, #f3e0d4 0%, #ecd2bf 100%);
@@ -2477,6 +2506,76 @@ body  { overflow-x: hidden; }
   #wa { bottom: 16px; right: 16px; }
   #wa .wa-a { width: 48px; height: 48px; }
   #wa svg { width: 24px; height: 24px; }
+}
+</style>
+<style>
+
+/* ============================================================
+   AJUSTE SOLICITADO — IMPLANTAÇÃO + ANIMAÇÃO DAS PLANTAS
+   ============================================================ */
+#fachada .fachada-in {
+  grid-template-columns: minmax(0, 1.14fr) minmax(360px, .86fr);
+  gap: 54px;
+}
+#fachada .fachada-img {
+  background: #fff;
+  padding: 10px;
+  box-shadow: 0 22px 60px rgba(51,36,26,.10);
+}
+#fachada .fachada-img img.implantacao-planta {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
+  background: #fff;
+  border-radius: calc(var(--rl) - 7px);
+}
+#fachada .fachada-img:hover img.implantacao-planta {
+  transform: scale(1.015);
+}
+
+/* A coluna direita acompanha a altura da coluna esquerda durante o scroll. */
+#plantas .pt-side {
+  position: relative;
+}
+#plantas .pt-panel img {
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
+#plantas .pt-side .pt-topicos,
+#plantas .pt-side .pt-panels {
+  will-change: transform, opacity;
+  transform-origin: center top;
+  transition: opacity .22s linear !important;
+}
+@media (min-width: 901px) {
+  #plantas .pt-side .pt-panels {
+    position: relative !important;
+    top: auto !important;
+    align-self: start;
+  }
+}
+@media (max-width: 1100px) {
+  #fachada .fachada-in {
+    grid-template-columns: 1fr;
+  }
+  #fachada .fachada-img img.implantacao-planta {
+    max-height: none;
+  }
+}
+@media (max-width: 900px) {
+  #plantas .pt-side .pt-topicos,
+  #plantas .pt-side .pt-panels {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #plantas .pt-side .pt-topicos,
+  #plantas .pt-side .pt-panels {
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
 </style>
 </head>
@@ -2527,13 +2626,13 @@ body  { overflow-x: hidden; }
 <div class="hero-copy">
 <div class="hero-eyebrow hl-rv hl-d1"><span class="h-ey-ln"></span>Sorocaba · Zona Norte · Lançamento</div>
 <h1 class="hero-headline hl-rv hl-d2">
-        Seu refúgio.<br/>
-<em>Na melhor esquina<br/>da cidade.</em>
+        Seu refúgio<br/>
+<em>na melhor esquina<br/>da cidade</em>
 </h1>
 <span class="brand-line hl-rv hl-d3"></span>
 <p class="hero-sub hl-rv hl-d3">
-        Resort condomínio com lazer completo, piscina, beach tennis e qualidade de vida —
-        no coração da Zona Norte de Sorocaba.
+        Resort condomínio com lazer completo, piscina, beach tennis e muito mais —
+        uma melhor qualidade de vida na melhor localização da Zona Norte de Sorocaba.
       </p>
 <div class="badges rv d4">
 <span class="badge"><span class="bdot"></span>Beach Tennis</span>
@@ -2547,10 +2646,10 @@ body  { overflow-x: hidden; }
 </div>
 <div class="hero-panel rvr d2">
 <div class="hero-logo-wrap">
-<img alt="Green Park Resort" class="hero-logo" src="images/logo-greenpark-stacked.png"/>
+<img alt="Green Park Resort" class="hero-logo" src="images/logo-greenpark-menu-preta.png"/>
 </div>
-<p class="f-title">Garanta suas condições de lançamento</p>
-<p class="f-sub">Atendimento personalizado — sem compromisso.</p>
+<p class="f-title">Faça sua simulação sem compromisso!</p>
+<p class="f-sub">Atendimento exclusivo, pensado em cada detalhe para você.</p>
 <form id="form-hero" novalidate="">
 <div class="frow"><label for="h-name">Nome completo</label><input id="h-name" placeholder="Seu nome" required="" type="text"/></div>
 <div class="frow"><label for="h-tel">WhatsApp</label><input id="h-tel" placeholder="(15) 99897-1515" required="" type="tel"/></div>
@@ -2569,20 +2668,21 @@ body  { overflow-x: hidden; }
 </div>
 <div class="scroll-ind"><span>Explore</span><span class="scroll-line"></span></div>
 </section>
-<div id="strip">
-<div class="container"><div class="strip-in">
-<div class="si"><div class="sin">R$ 500<sup style="font-size:.52em">*</sup></div><div class="sil">Sinal a partir de</div><div class="sia">*Consulte condições</div></div>
-<div class="si"><div class="sin">60x<sup style="font-size:.52em">*</sup></div><div class="sil">Entrada em até</div><div class="sia">*Consulte condições</div></div>
-<div class="si"><div class="sin">R$ 895<sup style="font-size:.52em">*</sup></div><div class="sil">Parcelas a partir de</div><div class="sia">*Consulte condições</div></div>
-<div class="si"><div class="sin">Grátis<sup style="font-size:.52em">*</sup></div><div class="sil">ITBI e Registro</div><div class="sia">*Consulte condições</div></div>
-</div></div>
-</div>
 <section id="lazer">
 <img alt="" aria-hidden="true" class="section-watermark" src="images/watermark-logo-1.png"/>
+<img alt="" aria-hidden="true" class="leaf-decor" src="images/palm-leaf.png"/>
+<div id="strip">
+<div class="container"><div class="strip-in">
+<div class="si"><div class="sil">Sinal a partir de</div><div class="sin">R$ 500<sup style="font-size:.52em">*</sup></div><div class="sia">*Consulte condições</div></div>
+<div class="si"><div class="sil">Entrada em até</div><div class="sin">60x<sup style="font-size:.52em">*</sup></div><div class="sia">*Consulte condições</div></div>
+<div class="si"><div class="sil">Parcelas a partir de</div><div class="sin">R$ 895<sup style="font-size:.52em">*</sup></div><div class="sia">*Consulte condições</div></div>
+<div class="si"><div class="sil">ITBI e Registro</div><div class="sin">Grátis<sup style="font-size:.52em">*</sup></div><div class="sia">*Consulte condições</div></div>
+</div></div>
+</div>
 <div class="container">
 <div class="lazer-head rv">
 <p class="s-tag s-tag-dk">Área de lazer</p>
-<h2 class="s-h">Resort.<br/>Não é força de expressão.</h2>
+<h2 class="s-h">Resort não é força de expressão.</h2>
 <p style="font-size:.92rem;font-weight:300;max-width:440px;margin:0 auto;line-height:1.75">Infraestrutura completa para curtir cada momento — sem precisar sair de casa.</p>
 </div>
 </div>
@@ -2672,9 +2772,10 @@ body  { overflow-x: hidden; }
 </div></div>
 </section>
 <section id="fachada">
+<img alt="" aria-hidden="true" class="leaf-decor" src="images/palm-leaf.png"/>
 <div class="container"><div class="fachada-in">
 <div class="fachada-img rvl" id="fachada-click">
-<img alt="Green Park Resort — Área de Lazer — Piscina" data-admin-key="torres-photo" src="images/hero-bg.jpg"/>
+<img alt="Planta do apartamento Green Park Resort com garden" class="implantacao-planta" data-admin-key="torres-photo" src="images/planta-implantacao-garden.png"/>
 <div class="gal-zm"><svg viewbox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path></svg></div>
 </div>
 <div class="rvr">
@@ -2684,8 +2785,9 @@ body  { overflow-x: hidden; }
 <div class="tipo"><div class="tipo-d"><strong>2 quartos com varanda</strong>Sem suíte · Varanda integrada</div></div>
 <div class="tipo"><div class="tipo-d"><strong>2 quartos com varanda + suíte</strong>Com suíte · Varanda integrada</div></div>
 </div>
-<a class="btn btn-terra" href="https://wa.me/5515998971515?text=Quero conhecer mais a tipoligias do *Green Park Resort,* por favor." rel="noopener" target="_blank">Ver plantas e condições</a>
+<a class="btn btn-terra" href="#plantas">Ver plantas e condições</a>
 <p class="disc" style="color:rgba(51,36,26,.6);margin-top:13px">Consulte condições. Sujeito à aprovação de crédito. Valores sujeitos a alteração.</p>
+<p class="s-p" style="font-size:.85rem;margin-top:18px;color:rgba(51,36,26,.75)">Visite o decorado e faça sua simulação, contamos com atendimento personalizado para te ajudar a encontrar a unidade ideal.</p>
 </div>
 </div></div>
 </section>
@@ -2711,7 +2813,7 @@ body  { overflow-x: hidden; }
 <div class="pt-side">
 <div class="pt-panels rv d2">
 <div class="pt-panel active" data-idx="0">
-<img alt="Planta do apartamento Green Park Resort — Pavimento Tipo Garden 2 quartos" data-admin-key="planta-1" loading="lazy" src="images/planta-garden-2-quartos.jpg"/>
+<img alt="Planta do apartamento Green Park Resort — Pavimento Tipo Garden 2 quartos" data-admin-key="planta-1" loading="eager" src="images/planta-garden-2-quartos.jpg"/>
 <div class="pt-caption">
 <span class="pt-caption-label">Planta — Pav. Tipo Garden</span>
 <span class="pt-caption-note">Imagem meramente ilustrativa</span>
@@ -2761,16 +2863,16 @@ body  { overflow-x: hidden; }
 <span>Condomínio fechado</span>
 </li>
 <li class="pt-top-item">
-<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87V15.13a1 1 0 01-1.447.9L15 14M3 8h12v8H3a1 1 0 01-1-1V9a1 1 0 011-1z"></path></svg></span>
-<span>Portaria com sistema de monitoramento</span>
-</li>
-<li class="pt-top-item">
 <span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg></span>
 <span>Lazer entregue semi-mobiliado</span>
 </li>
 <li class="pt-top-item">
 <span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg></span>
-<span>2 dormitórios com varanda</span>
+<span>Opção de 2 dormitórios com varanda</span>
+</li>
+<li class="pt-top-item">
+<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path><path d="M8 21v-4a1 1 0 011-1h6a1 1 0 011 1v4"></path></svg></span>
+<span>Opção de 2 dormitórios com garden</span>
 </li>
 <li class="pt-top-item">
 <span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg></span>
@@ -2788,6 +2890,15 @@ body  { overflow-x: hidden; }
 <span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path><path d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1"></path></svg></span>
 <span>Vagas demarcadas</span>
 </li>
+</ul>
+<div class="pt-top-h" style="margin-top:28px;font-size:.95rem">Informações gerais do empreendimento</div>
+<ul class="pt-top-list" style="margin-top:12px">
+<li class="pt-top-item"><span><strong>Área do terreno:</strong> 9.347,76 m²</span></li>
+<li class="pt-top-item"><span><strong>Nº de unidades:</strong> 288</span></li>
+<li class="pt-top-item"><span><strong>Nº de torres:</strong> 3</span></li>
+<li class="pt-top-item"><span><strong>Nº de pavimentos:</strong> 12</span></li>
+<li class="pt-top-item"><span><strong>Nº de unid. por pavimento:</strong> 8</span></li>
+<li class="pt-top-item"><span><strong>Tipologia:</strong> 2 dorms com varanda (de 42,50 m² a 60,78 m²)</span></li>
 </ul>
 </div>
 </div>
@@ -2868,6 +2979,60 @@ body  { overflow-x: hidden; }
   .hero-logo { width: 150px !important; }
   .hdr-logo { height: 28px !important; }
 }
+
+
+/* === AJUSTES FINOS — ESPAÇOS E FOLHAGEM === */
+.hero-panel{
+  padding-top:24px;
+}
+.hero-panel .hero-logo-wrap{
+  margin-bottom:18px !important;
+  padding-bottom:16px !important;
+}
+.hero-panel .hero-logo{
+  display:block;
+  width:180px !important;
+  max-width:100% !important;
+  margin-bottom:0 !important;
+}
+
+#lazer{
+  padding-top:0 !important;
+}
+#lazer .lazer-head{
+  padding-top:52px;
+}
+#lazer .leaf-decor,
+#fachada .leaf-decor{
+  top:16px;
+  right:16px;
+  width:clamp(120px, 14vw, 180px);
+  height:auto;
+  opacity:.96;
+}
+
+@media (max-width: 768px){
+  .hero-panel{
+    padding-top:18px;
+  }
+  .hero-panel .hero-logo-wrap{
+    margin-bottom:14px !important;
+    padding-bottom:12px !important;
+  }
+  .hero-panel .hero-logo{
+    width:136px !important;
+  }
+  #lazer .lazer-head{
+    padding-top:34px;
+  }
+  #lazer .leaf-decor,
+  #fachada .leaf-decor{
+    top:10px;
+    right:10px;
+    width:94px;
+  }
+}
+
 </style>
 <section id="conds">
 <img alt="" aria-hidden="true" class="section-watermark" src="images/watermark-logo-2.png"/>
@@ -2950,6 +3115,8 @@ body  { overflow-x: hidden; }
 </div></div>
 </section>
 <section id="form-final">
+<img alt="" aria-hidden="true" class="ff-left-leaf" src="images/form-final-leaf-left.png"/>
+<img alt="" aria-hidden="true" class="ff-right-leaf" src="images/form-final-leaf-right.png"/>
 <img alt="" aria-hidden="true" class="section-watermark" src="images/watermark-logo-2.png"/>
 <div class="container"><div class="ff-in">
 <h2 class="ff-title rv d1">Seu momento<br/>é <em>agora.</em></h2>
@@ -2965,7 +3132,7 @@ body  { overflow-x: hidden; }
 <button class="btn btn-terra" type="submit">Garantir minha unidade</button>
 </div>
 </form>
-<p class="disc" style="color:rgba(242,237,228,.45);margin-top:13px;text-align:center">Consulte condições. Sujeito à aprovação de crédito. Valores sujeitos a alteração.</p>
+<p class="disc" style="color:rgba(51,36,26,.5);margin-top:13px;text-align:center">Consulte condições. Sujeito à aprovação de crédito. Valores sujeitos a alteração.</p>
 </div>
 </div></div>
 </section>
@@ -2988,9 +3155,9 @@ body  { overflow-x: hidden; }
 <h5>Atendimento</h5>
 <ul>
 <li>Segunda a Sábado</li>
-<li><strong>8h às 19h</strong></li>
-<li>Sorocaba, SP — Zona Norte</li>
+<li><strong>08h às 17h</strong></li>
 <li>Alameda do Horto, 714 — Caguaçu</li>
+<li>Sorocaba, SP — Zona Norte</li>
 </ul>
 </div>
 </div>
@@ -3594,6 +3761,190 @@ lb.addEventListener('touchend',e=>{const dx=tsx-e.changedTouches[0].clientX;if(M
   })();
 
 
+// ── PLANTAS: movimento sincronizado entre as duas colunas ─────
+(function() {
+  var section = document.getElementById('plantas');
+  if (!section) return;
+
+  var side = section.querySelector('.pt-side');
+  var left = side && side.querySelector('.pt-topicos');
+  var right = side && side.querySelector('.pt-panels');
+  if (!side || !left || !right) return;
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var desktop = window.matchMedia('(min-width: 901px)');
+  var ticking = false;
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function renderPlantScroll() {
+    ticking = false;
+
+    if (!desktop.matches || reduceMotion.matches) {
+      left.style.transform = '';
+      right.style.transform = '';
+      left.style.opacity = '';
+      right.style.opacity = '';
+      return;
+    }
+
+    var rect = side.getBoundingClientRect();
+    var viewport = window.innerHeight || document.documentElement.clientHeight;
+
+    // Entrada: as duas colunas descem juntas; a direita vem de mais alto.
+    var entry = clamp((viewport * 0.92 - rect.top) / (viewport * 0.52), 0, 1);
+    var easedEntry = 1 - Math.pow(1 - entry, 3);
+    var leftEntryY = -28 * (1 - easedEntry);
+    var rightEntryY = -88 * (1 - easedEntry);
+
+    // Percurso: o card da direita desce pela coluna e termina alinhado
+    // com a base do conteúdo da esquerda.
+    var leftHeight = left.offsetHeight;
+    var rightHeight = right.offsetHeight;
+    var maxTravel = Math.max(0, leftHeight - rightHeight);
+    var travelRange = Math.max(1, side.offsetHeight - viewport * 0.34);
+    var travel = clamp((viewport * 0.34 - rect.top) / travelRange, 0, 1);
+    var easedTravel = travel * travel * (3 - 2 * travel);
+    var rightTravelY = maxTravel * easedTravel;
+
+    left.style.transform = 'translate3d(0,' + leftEntryY.toFixed(2) + 'px,0)';
+    right.style.transform = 'translate3d(0,' + (rightEntryY + rightTravelY).toFixed(2) + 'px,0)';
+    left.style.opacity = String(0.45 + easedEntry * 0.55);
+    right.style.opacity = String(0.25 + easedEntry * 0.75);
+  }
+
+  function requestRender() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(renderPlantScroll);
+  }
+
+  window.addEventListener('scroll', requestRender, { passive: true });
+  window.addEventListener('resize', requestRender);
+  desktop.addEventListener && desktop.addEventListener('change', requestRender);
+  reduceMotion.addEventListener && reduceMotion.addEventListener('change', requestRender);
+
+  section.querySelectorAll('.pt-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      requestAnimationFrame(requestRender);
+    });
+  });
+  right.querySelectorAll('img').forEach(function(img) {
+    if (!img.complete) img.addEventListener('load', requestRender, { once: true });
+  });
+
+  requestRender();
+})();
+
+
 </script>
+
+<style id="user-final-overrides">
+/* Ajustes finais pedidos pelo cliente */
+#lazer .leaf-decor,
+#fachada .leaf-decor {
+  display: none !important;
+}
+
+#form-final::before,
+#form-final::after {
+  content: none !important;
+  display: none !important;
+}
+
+#form-final .section-watermark {
+  display: none !important;
+}
+
+#form-final {
+  position: relative;
+  overflow: hidden;
+}
+
+#form-final .container {
+  position: relative;
+  z-index: 1;
+}
+
+
+.ff-right-leaf {
+  position: absolute;
+  right: -150px;
+  top: 120px;
+  width: min(34vw, 480px);
+  height: auto;
+  opacity: .92;
+  pointer-events: none;
+  z-index: 0;
+  filter: none;
+  transform: scaleX(-1) rotate(8deg);
+}
+
+.ff-left-leaf {
+  position: absolute;
+  left: -120px;
+  top: 24px;
+  width: min(38vw, 520px);
+  height: auto;
+  opacity: .92;
+  pointer-events: none;
+  z-index: 0;
+  filter: none;
+}
+
+.hero-panel .hero-logo {
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+@media (max-width: 900px) {
+  .ff-left-leaf {
+    left: -90px;
+    top: 36px;
+    width: 62vw;
+    opacity: .88;
+  }
+  .ff-right-leaf {
+    right: -110px;
+    top: 150px;
+    width: 52vw;
+    opacity: .88;
+  }
+}
+
+@media (max-width: 480px) {
+  .ff-left-leaf {
+    left: -70px;
+    top: 48px;
+    width: 72vw;
+  }
+  .ff-right-leaf {
+    right: -90px;
+    top: 210px;
+    width: 54vw;
+    opacity: .84;
+  }
+}
+
+/* Ordem da faixa de condições: título, valor e observação */
+#strip .si {
+  justify-content: center;
+}
+#strip .sil {
+  order: 1;
+  margin-bottom: 7px;
+}
+#strip .sin {
+  order: 2;
+}
+#strip .sia {
+  order: 3;
+  margin-top: 4px;
+}
+
+</style>
+
 </body>
 </html>
