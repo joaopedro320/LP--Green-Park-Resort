@@ -448,11 +448,24 @@ section{padding:96px 0}
    FACHADA
    ============================================= */
 #fachada{background:var(--dark);position:relative;overflow:hidden}
-.fachada-in{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-.fachada-img{border-radius:var(--rl);overflow:hidden;position:relative;cursor:zoom-in}
-.fachada-img img{width:100%;height:640px;object-fit:cover;display:block;transition:transform .65s var(--ease)}
-.fachada-img:hover img{transform:scale(1.04)}
-.fachada-img::after{content:'Imagem meramente ilustrativa';position:absolute;bottom:10px;right:12px;font-size:.55rem;color:rgba(255,255,255,.35);letter-spacing:.05em;font-weight:400}
+.implant-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:center}
+.implant-map{border-radius:var(--rl);overflow:hidden;position:relative;cursor:zoom-in;background:#f4f0ea;border:1px solid rgba(51,36,26,.08)}
+.implant-map img{width:100%;height:auto;display:block;transition:transform .65s var(--ease)}
+.implant-map:hover img{transform:scale(1.03)}
+.implant-map::after{content:'Imagem meramente ilustrativa';position:absolute;bottom:10px;right:12px;font-size:.55rem;color:rgba(51,36,26,.35);letter-spacing:.05em;font-weight:400}
+.implant-list{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;list-style:none;margin:0;padding:0}
+.implant-list li{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--dark);font-weight:500}
+.implant-num{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:rgba(208,127,83,.12);color:var(--terra);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.implant-access{display:flex;flex-wrap:wrap;gap:16px;margin-top:26px;padding-top:20px;border-top:1px solid rgba(51,36,26,.1)}
+.implant-access span{display:flex;align-items:center;gap:7px;font-size:.72rem;color:rgba(51,36,26,.7)}
+.ia-dot{width:9px;height:9px;border-radius:2px;display:inline-block}
+.ia-green{background:#5c9c5c}
+.ia-blue{background:#4a7fc7}
+.ia-red{background:#c0453c}
+@media (max-width: 860px){
+  .implant-grid{grid-template-columns:1fr;gap:32px}
+  .implant-list{grid-template-columns:1fr 1fr}
+}
 
 
 
@@ -1494,16 +1507,65 @@ body  { overflow-x: hidden; }
 .pt-tab:hover    { border-color: var(--petrol); background: rgba(107,93,82,.08); }
 .pt-tab.active   { background: var(--dark); color: var(--gold); border-color: var(--dark); }
 
+.pt-carousel { position: relative; }
+.pt-plan-label {
+  display: table;
+  margin: 0 auto 18px;
+  padding: 8px 20px;
+  border: 1px solid rgba(51,36,26,.18);
+  border-radius: 999px;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--dark);
+  background: #fff;
+}
 .pt-panels { position: relative; }
-.pt-panel  { display: none; flex-direction: column; gap: 0; }
+.pt-panel  { display: none; flex-direction: column; gap: 16px; background: #fff; border-radius: var(--rl) var(--rl) 0 0; padding: 24px 24px 0; box-shadow: 0 18px 50px rgba(51,36,26,.08); }
 .pt-panel.active { display: flex; }
+.pt-arrow {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(20,14,10,.55);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: background .25s;
+}
+.pt-arrow:hover { background: rgba(20,14,10,.8); }
+.pt-arrow svg { width: 20px; height: 20px; }
+.pt-prev { left: 12px; }
+.pt-next { right: 12px; }
+.pt-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+.pt-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(51,36,26,.25);
+  cursor: pointer;
+  padding: 0;
+}
+.pt-dot.active { background: var(--terra); width: 22px; border-radius: 4px; transition: all .25s; }
 
 .pt-panel img {
   width: 100%;
-  max-height: 680px;
+  aspect-ratio: 16 / 9;
   object-fit: contain;
-  background: #f9f5ee;
-  border-radius: var(--rl) var(--rl) 0 0;
   display: block;
   cursor: zoom-in;
   transition: transform .3s var(--ease);
@@ -1513,6 +1575,7 @@ body  { overflow-x: hidden; }
   background: var(--dark);
   border-radius: 0 0 var(--rl) var(--rl);
   padding: 16px 24px;
+  margin: 0 -24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1836,21 +1899,21 @@ body  { overflow-x: hidden; }
 }
 #engefor::before {
   content:''; position:absolute; top:0; right:0;
-  opacity:.05; pointer-events:none;
-  -webkit-mask:var(--lmb) no-repeat right -20px top -30px/40% auto;
-  mask:var(--lmb) no-repeat right -20px top -30px/40% auto;
+  opacity:.02; pointer-events:none;
+  -webkit-mask:var(--lmb) no-repeat right -20px top -30px/28% auto;
+  mask:var(--lmb) no-repeat right -20px top -30px/28% auto;
   background-color:var(--dark);
   width:100%; height:100%;
-  filter: blur(16px);
+  filter: blur(10px);
 }
 #engefor::after {
   content:''; position:absolute; bottom:0; left:0;
-  opacity:.05; pointer-events:none;
-  -webkit-mask:var(--lm3) no-repeat left -20px bottom -30px/44% auto;
-  mask:var(--lm3) no-repeat left -20px bottom -30px/44% auto;
+  opacity:.02; pointer-events:none;
+  -webkit-mask:var(--lm3) no-repeat left -20px bottom -30px/30% auto;
+  mask:var(--lm3) no-repeat left -20px bottom -30px/30% auto;
   background-color:var(--dark);
   width:100%; height:100%;
-  filter: blur(16px);
+  filter: blur(10px);
   transform: scaleX(-1);
 }
 #engefor .container { position:relative; z-index:1; }
@@ -1873,7 +1936,7 @@ body  { overflow-x: hidden; }
 #engefor .esl { color:var(--petrol); }
 
 /* PLANTAS — creme + monstera multi canto sup direito */
-#plantas { background:var(--cream); position:relative; overflow:hidden; }
+#plantas { background:var(--cream); position:relative; }
 #plantas::after {
   content:none;
 }
@@ -2104,11 +2167,7 @@ body  { overflow-x: hidden; }
 ::-webkit-scrollbar-thumb { background: var(--nude); }
 ::-webkit-scrollbar-thumb:hover { background: var(--terra); }
 
-/* FLOATING WA button — terra */
-.wa-a {
-  background: linear-gradient(135deg, var(--terra) 0%, #b86a42 100%) !important;
-  box-shadow: 0 8px 32px rgba(208,127,83,.45) !important;
-}
+/* FLOATING WA button — verde WhatsApp (padrão) */
 
 
 /* ── BOTÃO DESABILITADO: cinza até preencher tudo ── */
@@ -2335,6 +2394,26 @@ body  { overflow-x: hidden; }
   border-radius: 6px; padding: 8px 14px;
   font-size: .68rem; color: rgba(240,235,228,.75); font-weight: 500;
 }
+.cond-logo-img {
+  background: #fff;
+  border-radius: 6px;
+  padding: 8px 14px;
+  height: 34px;
+  width: auto;
+  object-fit: contain;
+}
+.eng-site-link {
+  margin-top: 18px;
+  text-align: center;
+  font-size: .85rem;
+}
+.eng-site-link a {
+  color: var(--terra);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(208,127,83,.4);
+}
+.eng-site-link a:hover { border-bottom-color: var(--terra); }
 
 /* ══ CONDIÇÕES: layout em 2 colunas + carrossel de imagens ══ */
 .conds-in { display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; }
@@ -2457,20 +2536,19 @@ body  { overflow-x: hidden; }
 /* ══ PLANTAS: lista + carrossel lado a lado ═══════════════════ */
 .pt-side {
   display: grid;
-  grid-template-columns: minmax(300px, 380px) 1fr;
-  gap: 36px;
+  grid-template-columns: minmax(260px, 320px) 1.6fr;
+  gap: 40px;
   align-items: start;
 }
-.pt-side .pt-panels { order: 2; margin: 0; }
-.pt-side .pt-topicos { order: 1; margin: 0; display: flex; flex-direction: column; justify-content: center; }
+.pt-side .pt-topicos { margin: 0; display: flex; flex-direction: column; justify-content: center; }
 @media (min-width: 901px) {
-  .pt-side .pt-panels {
+  .pt-side .pt-carousel {
     position: sticky;
     top: 100px;
     align-self: start;
-    transition: top .2s ease;
   }
 }
+.pt-side .pt-carousel { margin: 0; }
 .pt-topicos {
   padding: 44px 36px;
   background: linear-gradient(160deg, #f3e0d4 0%, #ecd2bf 100%);
@@ -2493,7 +2571,7 @@ body  { overflow-x: hidden; }
 .pt-top-ic svg { width: 19px; height: 19px; stroke: var(--terra); }
 @media (max-width: 900px) {
   .pt-side { grid-template-columns: 1fr; }
-  .pt-side .pt-panels { order: 1; }
+  .pt-side .pt-carousel { order: 1; }
   .pt-side .pt-topicos { order: 2; }
 }
 
@@ -2511,70 +2589,11 @@ body  { overflow-x: hidden; }
 <style>
 
 /* ============================================================
-   AJUSTE SOLICITADO — IMPLANTAÇÃO + ANIMAÇÃO DAS PLANTAS
+   IMPLANTAÇÃO + PLANTAS — ajustes de enquadramento
    ============================================================ */
-#fachada .fachada-in {
-  grid-template-columns: minmax(0, 1.14fr) minmax(360px, .86fr);
-  gap: 54px;
-}
-#fachada .fachada-img {
-  background: #fff;
-  padding: 10px;
-  box-shadow: 0 22px 60px rgba(51,36,26,.10);
-}
-#fachada .fachada-img img.implantacao-planta {
-  width: 100%;
-  height: auto;
-  min-height: 0;
-  object-fit: contain;
-  background: #fff;
-  border-radius: calc(var(--rl) - 7px);
-}
-#fachada .fachada-img:hover img.implantacao-planta {
-  transform: scale(1.015);
-}
-
-/* A coluna direita acompanha a altura da coluna esquerda durante o scroll. */
-#plantas .pt-side {
-  position: relative;
-}
-#plantas .pt-panel img {
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
-}
-#plantas .pt-side .pt-topicos,
-#plantas .pt-side .pt-panels {
-  will-change: transform, opacity;
-  transform-origin: center top;
-  transition: opacity .22s linear !important;
-}
-@media (min-width: 901px) {
-  #plantas .pt-side .pt-panels {
-    position: relative !important;
-    top: auto !important;
-    align-self: start;
-  }
-}
 @media (max-width: 1100px) {
-  #fachada .fachada-in {
+  .implant-grid {
     grid-template-columns: 1fr;
-  }
-  #fachada .fachada-img img.implantacao-planta {
-    max-height: none;
-  }
-}
-@media (max-width: 900px) {
-  #plantas .pt-side .pt-topicos,
-  #plantas .pt-side .pt-panels {
-    transform: none !important;
-    opacity: 1 !important;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  #plantas .pt-side .pt-topicos,
-  #plantas .pt-side .pt-panels {
-    transform: none !important;
-    opacity: 1 !important;
   }
 }
 </style>
@@ -2631,18 +2650,8 @@ body  { overflow-x: hidden; }
 </h1>
 <span class="brand-line hl-rv hl-d3"></span>
 <p class="hero-sub hl-rv hl-d3">
-        Resort condomínio com lazer completo, piscina, beach tennis e muito mais —
-        uma melhor qualidade de vida na melhor localização da Zona Norte de Sorocaba.
+        Condomínio fechado estilo resort com lazer completo, na melhor localização da Zona Norte de Sorocaba.
       </p>
-<div class="badges rv d4">
-<span class="badge"><span class="bdot"></span>Beach Tennis</span>
-<span class="badge"><span class="bdot"></span>Piscina</span>
-<span class="badge"><span class="bdot"></span>Academia</span>
-<span class="badge"><span class="bdot"></span>Car Wash</span>
-<span class="badge"><span class="bdot"></span>Mercadinho</span>
-<span class="badge"><span class="bdot"></span>Vagas Demarcadas</span>
-<span class="badge"><span class="bdot"></span>Pet Friendly</span>
-</div>
 </div>
 <div class="hero-panel rvr d2">
 <div class="hero-logo-wrap">
@@ -2689,52 +2698,80 @@ body  { overflow-x: hidden; }
 <div class="amb-wrap">
 <div class="amb-track" id="amb-track">
 <div class="amb-slide active">
-<img alt="Green Park Resort — Piscina" data-admin-key="lazer-1" loading="eager" src="images/lazer-piscina.jpg"/>
+<img alt="Green Park Resort — Piscina adulto e infantil" data-admin-key="lazer-1" loading="eager" src="images/lazer-piscina.jpg"/>
 <div class="amb-info">
 <span class="amb-cat">Lazer</span>
-<h3 class="amb-label">Piscina</h3>
+<h3 class="amb-label">Piscina adulto e infantil</h3>
 </div>
 </div>
 <div class="amb-slide">
-<img alt="Green Park Resort — Espaço Fitness" data-admin-key="lazer-2" loading="lazy" src="images/lazer-fitness.jpg"/>
+<img alt="Green Park Resort — Quadra" data-admin-key="lazer-2" loading="lazy" src="images/lazer-quadra.jpg"/>
 <div class="amb-info">
 <span class="amb-cat">Lazer</span>
-<h3 class="amb-label">Espaço Fitness</h3>
+<h3 class="amb-label">Quadra</h3>
 </div>
 </div>
 <div class="amb-slide">
-<img alt="Green Park Resort — Quadra Poliesportiva" data-admin-key="lazer-3" loading="lazy" src="images/lazer-quadra.jpg"/>
+<img alt="Green Park Resort — Quadra de Beach Tennis" data-admin-key="lazer-3" loading="lazy" src="images/lazer-beach-tenis.jpg"/>
 <div class="amb-info">
 <span class="amb-cat">Lazer</span>
-<h3 class="amb-label">Quadra Poliesportiva</h3>
+<h3 class="amb-label">Quadra de beach tennis</h3>
 </div>
 </div>
 <div class="amb-slide">
-<img alt="Green Park Resort — Playground" data-admin-key="lazer-4" loading="lazy" src="images/lazer-playground.jpg"/>
+<img alt="Green Park Resort — Salão de Festas" data-admin-key="lazer-4" loading="lazy" src="images/lazer-salao-festas.jpg"/>
+<div class="amb-info">
+<span class="amb-cat">Lazer</span>
+<h3 class="amb-label">Salão de festas</h3>
+</div>
+</div>
+<div class="amb-slide">
+<img alt="Green Park Resort — Espaço Gourmet" data-admin-key="lazer-5" loading="lazy" src="images/lazer-gourmet.jpg"/>
+<div class="amb-info">
+<span class="amb-cat">Lazer</span>
+<h3 class="amb-label">Espaço gourmet</h3>
+</div>
+</div>
+<div class="amb-slide">
+<img alt="Green Park Resort — Playground" data-admin-key="lazer-6" loading="lazy" src="images/lazer-playground.jpg"/>
 <div class="amb-info">
 <span class="amb-cat">Lazer</span>
 <h3 class="amb-label">Playground</h3>
 </div>
 </div>
 <div class="amb-slide">
-<img alt="Green Park Resort — Espaço Gourmet com Churrasqueira" data-admin-key="lazer-5" loading="lazy" src="images/lazer-gourmet.jpg"/>
+<img alt="Green Park Resort — Academia" data-admin-key="lazer-7" loading="lazy" src="images/lazer-fitness.jpg"/>
 <div class="amb-info">
 <span class="amb-cat">Lazer</span>
-<h3 class="amb-label">Espaço Gourmet com Churrasqueira</h3>
+<h3 class="amb-label">Academia</h3>
 </div>
 </div>
 <div class="amb-slide">
-<img alt="Green Park Resort — Espaço Redário" data-admin-key="lazer-6" loading="lazy" src="images/lazer-redario.jpg"/>
+<img alt="Green Park Resort — Salão de Jogos" data-admin-key="lazer-8" loading="lazy" src="images/lazer-salao-jogos.jpg"/>
 <div class="amb-info">
 <span class="amb-cat">Lazer</span>
-<h3 class="amb-label">Espaço Redário</h3>
+<h3 class="amb-label">Salão de jogos</h3>
 </div>
 </div>
 <div class="amb-slide">
-<img alt="Green Park Resort — Salão de Festas" data-admin-key="lazer-7" loading="lazy" src="images/lazer-salao-festas.jpg"/>
+<img alt="Green Park Resort — Car Wash" data-admin-key="lazer-9" loading="lazy" src="images/lazer-car-wash.jpg"/>
 <div class="amb-info">
 <span class="amb-cat">Lazer</span>
-<h3 class="amb-label">Salão de Festas</h3>
+<h3 class="amb-label">Car Wash</h3>
+</div>
+</div>
+<div class="amb-slide">
+<img alt="Green Park Resort — Mercadinho" data-admin-key="lazer-10" loading="lazy" src="images/lazer-mercadinho.jpg"/>
+<div class="amb-info">
+<span class="amb-cat">Lazer</span>
+<h3 class="amb-label">Mercadinho</h3>
+</div>
+</div>
+<div class="amb-slide">
+<img alt="Green Park Resort — Bicicletário" data-admin-key="lazer-11" loading="lazy" src="images/lazer-bicicletario.jpg"/>
+<div class="amb-info">
+<span class="amb-cat">Lazer</span>
+<h3 class="amb-label">Bicicletário</h3>
 </div>
 </div>
 </div>
@@ -2743,7 +2780,7 @@ body  { overflow-x: hidden; }
 </div>
 <div class="amb-bar">
 <div class="amb-dots" id="amb-dots">
-<button aria-label="Imagem 1" class="amb-dot active" data-idx="0"></button><button aria-label="Imagem 2" class="amb-dot" data-idx="1"></button><button aria-label="Imagem 3" class="amb-dot" data-idx="2"></button><button aria-label="Imagem 4" class="amb-dot" data-idx="3"></button><button aria-label="Imagem 5" class="amb-dot" data-idx="4"></button><button aria-label="Imagem 6" class="amb-dot" data-idx="5"></button><button aria-label="Imagem 7" class="amb-dot" data-idx="6"></button>
+<button aria-label="Imagem 1" class="amb-dot active" data-idx="0"></button><button aria-label="Imagem 2" class="amb-dot" data-idx="1"></button><button aria-label="Imagem 3" class="amb-dot" data-idx="2"></button><button aria-label="Imagem 4" class="amb-dot" data-idx="3"></button><button aria-label="Imagem 5" class="amb-dot" data-idx="4"></button><button aria-label="Imagem 6" class="amb-dot" data-idx="5"></button><button aria-label="Imagem 7" class="amb-dot" data-idx="6"></button><button aria-label="Imagem 8" class="amb-dot" data-idx="7"></button><button aria-label="Imagem 9" class="amb-dot" data-idx="8"></button><button aria-label="Imagem 10" class="amb-dot" data-idx="9"></button><button aria-label="Imagem 11" class="amb-dot" data-idx="10"></button>
 </div>
 </div>
 <div class="container">
@@ -2773,23 +2810,47 @@ body  { overflow-x: hidden; }
 </section>
 <section id="fachada">
 <img alt="" aria-hidden="true" class="leaf-decor" src="images/palm-leaf.png"/>
-<div class="container"><div class="fachada-in">
-<div class="fachada-img rvl" id="fachada-click">
-<img alt="Planta do apartamento Green Park Resort com garden" class="implantacao-planta" data-admin-key="torres-photo" src="images/planta-implantacao-garden.png"/>
+<div class="container">
+<div class="implant-head rv" style="text-align:center;margin-bottom:40px">
+<p class="s-tag">Tipologias</p>
+<h2 class="s-h rv d1">Implantação</h2>
+<p style="font-size:.92rem;font-weight:300;color:rgba(51,36,26,.65);max-width:520px;margin:10px auto 0;line-height:1.75">Confira a distribuição completa do condomínio — torres, acessos e toda a área de lazer.</p>
+</div>
+<div class="implant-grid">
+<div class="implant-map rvl" id="fachada-click">
+<img alt="Mapa de implantação Green Park Resort com rosa dos ventos" class="implantacao-planta" data-admin-key="torres-photo" src="images/implantacao-mapa.jpg"/>
 <div class="gal-zm"><svg viewbox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path></svg></div>
 </div>
-<div class="rvr">
-<p class="s-tag">Tipologias</p>
-<h2 class="s-h rv d1">Implantação<br/><em>Lazer completo equipado e semidecorado</em></h2>
-<div class="tipos">
-<div class="tipo"><div class="tipo-d"><strong>2 quartos com varanda</strong>Sem suíte · Varanda integrada</div></div>
-<div class="tipo"><div class="tipo-d"><strong>2 quartos com varanda + suíte</strong>Com suíte · Varanda integrada</div></div>
+<div class="implant-legend rvr">
+<ul class="implant-list">
+<li><span class="implant-num">01</span>Guarita</li>
+<li><span class="implant-num">02</span>Apoio</li>
+<li><span class="implant-num">03</span>Vaga de Carga e Descarga</li>
+<li><span class="implant-num">04</span>Piscina Adulto</li>
+<li><span class="implant-num">05</span>Piscina Infantil</li>
+<li><span class="implant-num">06</span>Mercado</li>
+<li><span class="implant-num">07</span>Salão de Festas</li>
+<li><span class="implant-num">08</span>Jogos</li>
+<li><span class="implant-num">09</span>Academia</li>
+<li><span class="implant-num">10</span>Gourmet</li>
+<li><span class="implant-num">11</span>Bicicletário</li>
+<li><span class="implant-num">12</span>Playground</li>
+<li><span class="implant-num">13</span>Beach Tênis</li>
+<li><span class="implant-num">14</span>Gazebo</li>
+<li><span class="implant-num">15</span>Car Wash</li>
+<li><span class="implant-num">16</span>Pet Place</li>
+<li><span class="implant-num">17</span>Quadra</li>
+<li><span class="implant-num">18</span>Redário</li>
+<li><span class="implant-num">19</span>Castelo D'Água</li>
+</ul>
+<div class="implant-access">
+<span><i class="ia-dot ia-green"></i>Acesso de Pedestres</span>
+<span><i class="ia-dot ia-blue"></i>Acesso de Veículos</span>
+<span><i class="ia-dot ia-red"></i>Acesso das Torres</span>
 </div>
-<a class="btn btn-terra" href="#plantas">Ver plantas e condições</a>
-<p class="disc" style="color:rgba(51,36,26,.6);margin-top:13px">Consulte condições. Sujeito à aprovação de crédito. Valores sujeitos a alteração.</p>
-<p class="s-p" style="font-size:.85rem;margin-top:18px;color:rgba(51,36,26,.75)">Visite o decorado e faça sua simulação, contamos com atendimento personalizado para te ajudar a encontrar a unidade ideal.</p>
 </div>
-</div></div>
+</div>
+</div>
 </section>
 <section id="plantas" style="padding:96px 0">
 <div class="container">
@@ -2800,18 +2861,57 @@ body  { overflow-x: hidden; }
         2 quartos com varanda — com ou sem suíte. Veja a distribuição completa dos ambientes.
       </p>
 </div>
-<!-- Tabs -->
-<div class="pt-tabs rv d1">
-<button class="pt-tab active" data-idx="0">Planta — Pav. Tipo Garden</button>
-<button class="pt-tab" data-idx="1">Planta — Pav. Tipo</button>
-<button class="pt-tab" data-idx="2">Planta Tipo Canto Garden</button>
-<button class="pt-tab" data-idx="3">Planta Tipo Canto</button>
-<button class="pt-tab" data-idx="4">Planta Tipo Meio Garden</button>
-<button class="pt-tab" data-idx="5">Planta Tipo Meio</button>
-</div>
 <!-- Panels -->
 <div class="pt-side">
-<div class="pt-panels rv d2">
+<div class="pt-topicos rv d3">
+<h3 class="pt-top-h">O empreendimento</h3>
+<ul class="pt-top-list">
+<li class="pt-top-item">
+<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></span>
+<span>Condomínio fechado</span>
+</li>
+<li class="pt-top-item">
+<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg></span>
+<span>Lazer completo entregue equipado conforme memorial descritivo</span>
+</li>
+<li class="pt-top-item">
+<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg></span>
+<span>2 dorms com varanda</span>
+</li>
+<li class="pt-top-item">
+<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path><path d="M8 21v-4a1 1 0 011-1h6a1 1 0 011 1v4"></path></svg></span>
+<span>2 dorms com garden</span>
+</li>
+<li class="pt-top-item">
+<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg></span>
+<span>Opção de suíte</span>
+</li>
+<li class="pt-top-item">
+<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></span>
+<span>Previsão de infraestrutura para ar-condicionado no quarto do casal</span>
+</li>
+<li class="pt-top-item">
+<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg></span>
+<span>Entrega com piso laminado nos quartos e cerâmica nas áreas frias</span>
+</li>
+<li class="pt-top-item">
+<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path><path d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1"></path></svg></span>
+<span>Vagas privativas</span>
+</li>
+</ul>
+<div class="pt-top-h" style="margin-top:28px;font-size:.95rem">Informações gerais do empreendimento</div>
+<ul class="pt-top-list" style="margin-top:12px">
+<li class="pt-top-item"><span><strong>Área do terreno:</strong> 9.347,76 m²</span></li>
+<li class="pt-top-item"><span><strong>Nº de unidades:</strong> 288</span></li>
+<li class="pt-top-item"><span><strong>Nº de torres:</strong> 3</span></li>
+<li class="pt-top-item"><span><strong>Nº de pavimentos:</strong> 12</span></li>
+<li class="pt-top-item"><span><strong>Nº de unid. por pavimento:</strong> 8</span></li>
+<li class="pt-top-item"><span><strong>Tipologia:</strong> 2 dorms com varanda (de 42,50 m² a 60,78 m²)</span></li>
+</ul>
+</div>
+<div class="pt-carousel rv d1">
+<div class="pt-plan-label" id="pt-plan-label">Planta — Pav. Tipo Garden</div>
+<div class="pt-panels" id="pt-panels">
 <div class="pt-panel active" data-idx="0">
 <img alt="Planta do apartamento Green Park Resort — Pavimento Tipo Garden 2 quartos" data-admin-key="planta-1" loading="eager" src="images/planta-garden-2-quartos.jpg"/>
 <div class="pt-caption">
@@ -2855,51 +2955,11 @@ body  { overflow-x: hidden; }
 </div>
 </div>
 </div>
-<div class="pt-topicos rv d3">
-<h3 class="pt-top-h">O que seu apartamento inclui</h3>
-<ul class="pt-top-list">
-<li class="pt-top-item">
-<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></span>
-<span>Condomínio fechado</span>
-</li>
-<li class="pt-top-item">
-<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg></span>
-<span>Lazer entregue semi-mobiliado</span>
-</li>
-<li class="pt-top-item">
-<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg></span>
-<span>Opção de 2 dormitórios com varanda</span>
-</li>
-<li class="pt-top-item">
-<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path><path d="M8 21v-4a1 1 0 011-1h6a1 1 0 011 1v4"></path></svg></span>
-<span>Opção de 2 dormitórios com garden</span>
-</li>
-<li class="pt-top-item">
-<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg></span>
-<span>Opção de suíte</span>
-</li>
-<li class="pt-top-item">
-<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></span>
-<span>Previsão de infraestrutura para ar-condicionado no quarto do casal</span>
-</li>
-<li class="pt-top-item">
-<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg></span>
-<span>Entrega com piso laminado nos quartos e cerâmica nas áreas frias</span>
-</li>
-<li class="pt-top-item">
-<span class="pt-top-ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path><path d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1"></path></svg></span>
-<span>Vagas demarcadas</span>
-</li>
-</ul>
-<div class="pt-top-h" style="margin-top:28px;font-size:.95rem">Informações gerais do empreendimento</div>
-<ul class="pt-top-list" style="margin-top:12px">
-<li class="pt-top-item"><span><strong>Área do terreno:</strong> 9.347,76 m²</span></li>
-<li class="pt-top-item"><span><strong>Nº de unidades:</strong> 288</span></li>
-<li class="pt-top-item"><span><strong>Nº de torres:</strong> 3</span></li>
-<li class="pt-top-item"><span><strong>Nº de pavimentos:</strong> 12</span></li>
-<li class="pt-top-item"><span><strong>Nº de unid. por pavimento:</strong> 8</span></li>
-<li class="pt-top-item"><span><strong>Tipologia:</strong> 2 dorms com varanda (de 42,50 m² a 60,78 m²)</span></li>
-</ul>
+<button aria-label="Planta anterior" class="pt-arrow pt-prev" id="pt-prev"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<button aria-label="Próxima planta" class="pt-arrow pt-next" id="pt-next"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+<div class="pt-dots" id="pt-dots">
+<button aria-label="Planta 1" class="pt-dot active" data-idx="0"></button><button aria-label="Planta 2" class="pt-dot" data-idx="1"></button><button aria-label="Planta 3" class="pt-dot" data-idx="2"></button><button aria-label="Planta 4" class="pt-dot" data-idx="3"></button><button aria-label="Planta 5" class="pt-dot" data-idx="4"></button><button aria-label="Planta 6" class="pt-dot" data-idx="5"></button>
+</div>
 </div>
 </div>
 </div>
@@ -3045,23 +3105,23 @@ body  { overflow-x: hidden; }
 <div class="cond-list rv d2">
 <div class="cond-item"><div class="ci-ic">
 <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg></div>
-<div class="ci-txt"><strong>Sinal a partir de R$ 500<sup>*</sup></strong><span>Reserve sua unidade</span></div></div>
+<div class="ci-txt"><strong>Sinal a partir de R$ 500<sup>*</sup></strong></div></div>
 <div class="cond-item"><div class="ci-ic">
 <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" x2="7.01" y1="7" y2="7"></line></svg></div>
-<div class="ci-txt"><strong>Até R$ 35 mil de desconto<sup>*</sup></strong><span>Oferta por tempo limitado</span></div></div>
+<div class="ci-txt"><strong>Até R$ 35 mil de desconto<sup>*</sup></strong></div></div>
 <div class="cond-item"><div class="ci-ic">
 <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="14" rx="2" ry="2" width="20" x="2" y="7"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
-<div class="ci-txt"><strong>Entrada em até 60x<sup>*</sup></strong><span>Período de obras facilitado</span></div></div>
+<div class="ci-txt"><strong>Entrada em até 60x<sup>*</sup></strong></div></div>
 <div class="cond-item"><div class="ci-ic">
 <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><line x1="12" x2="12" y1="1" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
-<div class="ci-txt"><strong>Parcelas a partir de R$ 895<sup>*</sup></strong><span>Financiamento Caixa Econômica Federal</span></div></div>
+<div class="ci-txt"><strong>Parcelas a partir de R$ 895<sup>*</sup></strong></div></div>
 <div class="cond-item"><div class="ci-ic">
 <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
-<div class="ci-txt"><strong>ITBI e Registro grátis<sup>*</sup></strong><span>Válido para unidades do lançamento</span></div></div>
+<div class="ci-txt"><strong>ITBI e Registro grátis<sup>*</sup></strong></div></div>
 </div>
 <div class="cond-logos rv d3">
-<span class="cond-logo-badge">Caixa Econômica Federal</span>
-<span class="cond-logo-badge">Minha Casa Minha Vida</span>
+<img alt="Caixa Econômica Federal" class="cond-logo-img" src="images/logo-caixa.png"/>
+<img alt="Minha Casa Minha Vida" class="cond-logo-img" src="images/logo-mcmv.png"/>
 </div>
 <div class="cond-note">* Consulte condições. Sujeito à aprovação de crédito. Valores sujeitos a alteração sem aviso prévio. ITBI e Registro grátis válido para unidades do lançamento — consulte o corretor.</div>
 <div class="cond-cta rv"><a class="btn btn-terra" href="https://wa.me/5515998971515?text=Quero%20simular%20o%20financiamento%20do%20Green%20Park%20Resort." rel="noopener" target="_blank">Simular meu financiamento</a></div>
@@ -3110,6 +3170,7 @@ body  { overflow-x: hidden; }
 <button class="depo-dot" onclick="gotoDepo(1)"></button>
 <button class="depo-dot" onclick="gotoDepo(2)"></button>
 </div>
+<p class="eng-site-link"><a href="https://engeforengenharia.com.br" rel="noopener" target="_blank">Saiba mais em: engeforengenharia.com.br</a></p>
 </div>
 </div>
 </div></div>
@@ -3154,8 +3215,8 @@ body  { overflow-x: hidden; }
 <div class="ft-col">
 <h5>Atendimento</h5>
 <ul>
-<li>Segunda a Sábado</li>
-<li><strong>08h às 17h</strong></li>
+<li>Segunda à Sábado</li>
+<li><strong>08h às 18h</strong></li>
 <li>Alameda do Horto, 714 — Caguaçu</li>
 <li>Sorocaba, SP — Zona Norte</li>
 </ul>
@@ -3435,19 +3496,52 @@ lb.addEventListener('touchend',e=>{const dx=tsx-e.changedTouches[0].clientX;if(M
   startAuto();
 })();
 
-// ── PLANTAS TABS ──────────────────────────────────────────────
+// ── PLANTAS CARROSSEL ────────────────────────────────────────
 (function() {
-  const tabs   = document.querySelectorAll('.pt-tab');
-  const panels = document.querySelectorAll('.pt-panel');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const idx = +tab.dataset.idx;
-      tabs.forEach(t => t.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      panels[idx].classList.add('active');
-    });
-  });
+  const wrap   = document.getElementById('pt-panels');
+  if (!wrap) return;
+  const panels = wrap.querySelectorAll('.pt-panel');
+  const dotsEl = document.getElementById('pt-dots');
+  const dots   = dotsEl ? dotsEl.querySelectorAll('.pt-dot') : [];
+  const label  = document.getElementById('pt-plan-label');
+  const total  = panels.length;
+  let current  = 0;
+  let timer    = null;
+  let tsX      = 0;
+
+  function goTo(idx) {
+    panels[current].classList.remove('active');
+    if (dots[current]) dots[current].classList.remove('active');
+    current = (idx + total) % total;
+    panels[current].classList.add('active');
+    if (dots[current]) dots[current].classList.add('active');
+    if (label) {
+      const capLabel = panels[current].querySelector('.pt-caption-label');
+      if (capLabel) label.textContent = capLabel.textContent;
+    }
+  }
+
+  function startAuto() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 5000);
+  }
+
+  const prevBtn = document.getElementById('pt-prev');
+  const nextBtn = document.getElementById('pt-next');
+  if (prevBtn) prevBtn.addEventListener('click', () => { goTo(current - 1); startAuto(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { goTo(current + 1); startAuto(); });
+  dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.idx); startAuto(); }));
+
+  wrap.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, {passive:true});
+  wrap.addEventListener('touchend',   e => {
+    const dx = tsX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) { goTo(dx > 0 ? current + 1 : current - 1); startAuto(); }
+  }, {passive:true});
+
+  wrap.addEventListener('mouseenter', () => clearInterval(timer));
+  wrap.addEventListener('mouseleave', startAuto);
+
+  startAuto();
 })();
 
 
@@ -3761,82 +3855,6 @@ lb.addEventListener('touchend',e=>{const dx=tsx-e.changedTouches[0].clientX;if(M
   })();
 
 
-// ── PLANTAS: movimento sincronizado entre as duas colunas ─────
-(function() {
-  var section = document.getElementById('plantas');
-  if (!section) return;
-
-  var side = section.querySelector('.pt-side');
-  var left = side && side.querySelector('.pt-topicos');
-  var right = side && side.querySelector('.pt-panels');
-  if (!side || !left || !right) return;
-
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var desktop = window.matchMedia('(min-width: 901px)');
-  var ticking = false;
-
-  function clamp(value, min, max) {
-    return Math.min(max, Math.max(min, value));
-  }
-
-  function renderPlantScroll() {
-    ticking = false;
-
-    if (!desktop.matches || reduceMotion.matches) {
-      left.style.transform = '';
-      right.style.transform = '';
-      left.style.opacity = '';
-      right.style.opacity = '';
-      return;
-    }
-
-    var rect = side.getBoundingClientRect();
-    var viewport = window.innerHeight || document.documentElement.clientHeight;
-
-    // Entrada: as duas colunas descem juntas; a direita vem de mais alto.
-    var entry = clamp((viewport * 0.92 - rect.top) / (viewport * 0.52), 0, 1);
-    var easedEntry = 1 - Math.pow(1 - entry, 3);
-    var leftEntryY = -28 * (1 - easedEntry);
-    var rightEntryY = -88 * (1 - easedEntry);
-
-    // Percurso: o card da direita desce pela coluna e termina alinhado
-    // com a base do conteúdo da esquerda.
-    var leftHeight = left.offsetHeight;
-    var rightHeight = right.offsetHeight;
-    var maxTravel = Math.max(0, leftHeight - rightHeight);
-    var travelRange = Math.max(1, side.offsetHeight - viewport * 0.34);
-    var travel = clamp((viewport * 0.34 - rect.top) / travelRange, 0, 1);
-    var easedTravel = travel * travel * (3 - 2 * travel);
-    var rightTravelY = maxTravel * easedTravel;
-
-    left.style.transform = 'translate3d(0,' + leftEntryY.toFixed(2) + 'px,0)';
-    right.style.transform = 'translate3d(0,' + (rightEntryY + rightTravelY).toFixed(2) + 'px,0)';
-    left.style.opacity = String(0.45 + easedEntry * 0.55);
-    right.style.opacity = String(0.25 + easedEntry * 0.75);
-  }
-
-  function requestRender() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(renderPlantScroll);
-  }
-
-  window.addEventListener('scroll', requestRender, { passive: true });
-  window.addEventListener('resize', requestRender);
-  desktop.addEventListener && desktop.addEventListener('change', requestRender);
-  reduceMotion.addEventListener && reduceMotion.addEventListener('change', requestRender);
-
-  section.querySelectorAll('.pt-tab').forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      requestAnimationFrame(requestRender);
-    });
-  });
-  right.querySelectorAll('img').forEach(function(img) {
-    if (!img.complete) img.addEventListener('load', requestRender, { once: true });
-  });
-
-  requestRender();
-})();
 
 
 </script>
