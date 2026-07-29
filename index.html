@@ -2599,6 +2599,48 @@ body  { overflow-x: hidden; }
 </style>
 </head>
 <body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  function enviarLeadCVCRM(nome, email, telefone) {
+    var payload = {
+      "idempreendimento": "2",
+      "nome": nome,
+      "email": email,
+      "telefone": telefone
+    };
+    fetch('https://engeforengenharia.cvcrm.com.br/api/cvio/lead', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'email': 'login@qh4.com.br',
+        'token': '0d077e4db2e1a5bc1645f8c9778b5d0f9adc0307'
+      },
+      body: JSON.stringify(payload)
+    }).then(function(response) { return response.json(); })
+      .then(function(data) { console.log('CVCRM Success:', data); })
+      .catch(function(error) { console.error('CVCRM Error:', error); });
+  }
+
+  var formHero = document.getElementById('form-hero');
+  if (formHero) {
+    formHero.addEventListener('submit', function() {
+      var nome = formHero.querySelector('#h-name').value.trim();
+      var telefone = formHero.querySelector('#h-tel').value.trim();
+      enviarLeadCVCRM(nome, '', telefone);
+    });
+  }
+
+  var formFf = document.getElementById('form-ff');
+  if (formFf) {
+    formFf.addEventListener('submit', function() {
+      var nome = formFf.querySelector('#f-name').value.trim();
+      var telefone = formFf.querySelector('#f-tel').value.trim();
+      var email = formFf.querySelector('#f-email').value.trim();
+      enviarLeadCVCRM(nome, email, telefone);
+    });
+  }
+});
+</script>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NNXVL6C3" style="display:none;visibility:hidden" width="0"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
