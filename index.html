@@ -1525,12 +1525,43 @@ body  { overflow-x: hidden; }
 .mq-link:hover { color: var(--terra); border-color: var(--terra); }
 #video-emp { background: var(--dark); padding: 96px 0; position: relative; overflow: hidden; }
 .vd-grid { display: grid; grid-template-columns: .85fr 1fr; gap: 56px; align-items: center; }
-.vd-player {
+.vd-carousel { position: relative; z-index: 2; }
+.vd-stage {
   position: relative; aspect-ratio: 9/16; max-height: 620px; width: 100%;
   margin: 0 auto; border-radius: var(--rl); overflow: hidden;
   box-shadow: 0 24px 70px rgba(0,0,0,.45); background: #000;
 }
-.vd-player video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vd-slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .45s var(--ease); }
+.vd-slide.active { opacity: 1; visibility: visible; }
+.vd-slide video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vd-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 4;
+  width: 42px; height: 42px; border-radius: 50%; cursor: pointer;
+  background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.25);
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  transition: all .3s var(--ease);
+}
+.vd-arrow:hover { background: var(--terra); border-color: var(--terra); }
+.vd-arrow svg { width: 18px; height: 18px; }
+.vd-prev { left: 12px; }
+.vd-next { right: 12px; }
+.vd-caption { text-align: center; margin-top: 18px; }
+.vd-caption-label {
+  font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--gold);
+}
+.vd-dots { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
+.vd-dot {
+  width: 8px; height: 8px; border-radius: 50%; cursor: pointer; padding: 0;
+  background: rgba(255,255,255,.28); border: none; transition: all .3s var(--ease);
+}
+.vd-dot.active { background: var(--gold); width: 22px; border-radius: 100px; }
+.vd-leaf {
+  position: absolute; bottom: -60px; left: -80px;
+  width: clamp(220px, 26vw, 380px); height: auto;
+  opacity: .18; pointer-events: none; z-index: 1;
+  transform: rotate(12deg);
+}
 .vd-txt .s-tag { color: var(--gold); }
 .vd-txt .s-tag::before { background: var(--gold); }
 .vd-txt .s-h { color: var(--cream); margin-bottom: 20px; }
@@ -1549,7 +1580,8 @@ body  { overflow-x: hidden; }
 @media (max-width: 900px) {
   #maquete, #video-emp { padding: 72px 0; }
   .mq-grid, .vd-grid { grid-template-columns: 1fr; gap: 36px; }
-  .vd-player { max-height: 70vh; }
+  .vd-stage { max-height: 70vh; }
+  .vd-leaf { display: none; }
 }
 
 /* ============================================================
@@ -3079,7 +3111,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 </section>
 <section id="maquete">
-<img alt="" aria-hidden="true" class="leaf-decor" src="images/palm-leaf.png"/>
 <div class="container">
 <div class="mq-grid">
 <div class="mq-photo rvl">
@@ -3102,12 +3133,33 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 </section>
 <section id="video-emp">
+<img alt="" aria-hidden="true" class="vd-leaf" src="images/palm-leaf-new.png"/>
 <div class="container">
 <div class="vd-grid">
-<div class="vd-player rvl">
+<div class="vd-carousel rvl" id="vd-carousel">
+<div class="vd-stage">
+<div class="vd-slide active" data-label="Apartamento decorado">
 <video controls playsinline poster="images/video-decorado-poster.jpg" preload="metadata">
 <source src="videos/green-park-decorado.mp4" type="video/mp4"/>
 </video>
+</div>
+<div class="vd-slide" data-label="Maquete do empreendimento">
+<video controls playsinline poster="images/video-maquete-poster.jpg" preload="none">
+<source src="videos/green-park-maquete.mp4" type="video/mp4"/>
+</video>
+</div>
+<!-- APRESENTAÇÃO ENGEFOR: suba o arquivo como videos/apresentacao-engefor.mp4 e remova os comentários deste bloco para o slide entrar no carrossel.
+<div class="vd-slide" data-label="Apresentação Engefor">
+<video controls playsinline preload="none">
+<source src="videos/apresentacao-engefor.mp4" type="video/mp4"/>
+</video>
+</div>
+-->
+<button aria-label="Vídeo anterior" class="vd-arrow vd-prev" type="button"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<button aria-label="Próximo vídeo" class="vd-arrow vd-next" type="button"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+<div class="vd-caption"><span class="vd-caption-label" id="vd-caption-label">Apartamento decorado</span></div>
+<div class="vd-dots" id="vd-dots"></div>
 </div>
 <div class="vd-txt rvr">
 <p class="s-tag">O empreendimento</p>
@@ -4138,6 +4190,51 @@ lb.addEventListener('touchend',e=>{const dx=tsx-e.changedTouches[0].clientX;if(M
 }
 
 </style>
+
+<script>
+/* Carrossel de vídeos (decorado / maquete / apresentação) */
+(function(){
+  var wrap = document.getElementById('vd-carousel');
+  if (!wrap) return;
+  var slides = Array.prototype.slice.call(wrap.querySelectorAll('.vd-slide'));
+  var dotsBox = document.getElementById('vd-dots');
+  var label = document.getElementById('vd-caption-label');
+  var prev = wrap.querySelector('.vd-prev');
+  var next = wrap.querySelector('.vd-next');
+  var idx = 0;
+  if (slides.length < 2) {
+    if (prev) prev.style.display = 'none';
+    if (next) next.style.display = 'none';
+  }
+  slides.forEach(function(s, i){
+    var d = document.createElement('button');
+    d.type = 'button';
+    d.className = 'vd-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Ver ' + (s.dataset.label || ('vídeo ' + (i+1))));
+    d.addEventListener('click', function(){ go(i); });
+    dotsBox.appendChild(d);
+  });
+  function go(n){
+    idx = (n + slides.length) % slides.length;
+    slides.forEach(function(s, i){
+      var v = s.querySelector('video');
+      if (i === idx) {
+        s.classList.add('active');
+      } else {
+        s.classList.remove('active');
+        if (v && !v.paused) v.pause();
+      }
+    });
+    Array.prototype.forEach.call(dotsBox.children, function(d, i){
+      d.classList.toggle('active', i === idx);
+    });
+    if (label) label.textContent = slides[idx].dataset.label || '';
+  }
+  if (prev) prev.addEventListener('click', function(){ go(idx - 1); });
+  if (next) next.addEventListener('click', function(){ go(idx + 1); });
+  if (label && slides[0]) label.textContent = slides[0].dataset.label || '';
+})();
+</script>
 
 </body>
 </html>
