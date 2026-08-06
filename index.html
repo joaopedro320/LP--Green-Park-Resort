@@ -1475,8 +1475,81 @@ body  { overflow-x: hidden; }
 .obra-bar-row.obra-total .obar-label { color: var(--terra); font-weight: 700; }
 .obra-bar-row.obra-total .obar-fill { background: linear-gradient(90deg, var(--dark), var(--petrol)); }
 .obra-note { font-size: .78rem; color: rgba(51,36,26,.55); margin-bottom: 24px; }
+.obra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.obra-col-bars { min-width: 0; }
+.obra-photos-label {
+  font-size: .68rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--petrol); margin-bottom: 16px; display: block;
+}
+.obra-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.obra-photo-slot {
+  position: relative; aspect-ratio: 4/3; border-radius: var(--r);
+  background: rgba(107,93,82,.08); border: 1px dashed rgba(107,93,82,.28);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; overflow: hidden;
+}
+.obra-photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.obra-photo-slot svg { width: 26px; height: 26px; stroke: rgba(107,93,82,.45); fill: none; stroke-width: 1.4; }
+.obra-photo-slot span { font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(107,93,82,.6); }
+@media (max-width: 900px) {
+  .obra-grid { grid-template-columns: 1fr; gap: 32px; }
+}
 @media (max-width: 640px) {
   .obra-card { padding: 32px 24px; }
+}
+
+/* ============================================================
+   MAQUETE E VÍDEO DO EMPREENDIMENTO
+   ============================================================ */
+#maquete { background: var(--cream); padding: 96px 0; position: relative; overflow: hidden; }
+.mq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.mq-photo { border-radius: var(--rl); overflow: hidden; box-shadow: 0 24px 60px rgba(51,36,26,.16); }
+.mq-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mq-txt .s-h { margin-bottom: 20px; }
+.mq-txt .s-p { margin-bottom: 28px; }
+.mq-addr {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 18px 20px; border-radius: var(--r);
+  background: rgba(255,255,255,.7); border: 1px solid rgba(107,93,82,.14);
+  margin-bottom: 28px;
+}
+.mq-addr svg { width: 20px; height: 20px; stroke: var(--terra); fill: none; stroke-width: 1.6; flex-shrink: 0; margin-top: 2px; }
+.mq-addr strong { display: block; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--petrol); margin-bottom: 4px; }
+.mq-addr span { font-size: .9rem; font-weight: 300; color: var(--dark); line-height: 1.6; }
+.mq-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.mq-link {
+  font-size: .74rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--petrol); border-bottom: 1px solid rgba(107,93,82,.35); padding-bottom: 3px;
+  transition: all .3s var(--ease);
+}
+.mq-link:hover { color: var(--terra); border-color: var(--terra); }
+#video-emp { background: var(--dark); padding: 96px 0; position: relative; overflow: hidden; }
+.vd-grid { display: grid; grid-template-columns: .85fr 1fr; gap: 56px; align-items: center; }
+.vd-player {
+  position: relative; aspect-ratio: 9/16; max-height: 620px; width: 100%;
+  margin: 0 auto; border-radius: var(--rl); overflow: hidden;
+  box-shadow: 0 24px 70px rgba(0,0,0,.45); background: #000;
+}
+.vd-player video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vd-txt .s-tag { color: var(--gold); }
+.vd-txt .s-tag::before { background: var(--gold); }
+.vd-txt .s-h { color: var(--cream); margin-bottom: 20px; }
+.vd-txt .s-h em { color: var(--gold); }
+.vd-txt .s-p { color: rgba(250,250,247,.72); opacity: 1; margin-bottom: 28px; }
+.vd-addr {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 18px 20px; border-radius: var(--r);
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  margin-bottom: 28px;
+}
+.vd-addr svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.6; flex-shrink: 0; margin-top: 2px; }
+.vd-addr strong { display: block; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+.vd-addr span { font-size: .9rem; font-weight: 300; color: rgba(250,250,247,.85); line-height: 1.6; }
+.vd-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+@media (max-width: 900px) {
+  #maquete, #video-emp { padding: 72px 0; }
+  .mq-grid, .vd-grid { grid-template-columns: 1fr; gap: 36px; }
+  .vd-player { max-height: 70vh; }
 }
 
 /* ============================================================
@@ -3005,12 +3078,61 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 </div>
 </section>
-<!-- OCULTO A PEDIDO DO CLIENTE (10/07/2026): manter no HTML, esta seção volta quando a evolução da obra for retomada. Não excluir. -->
-<section id="obra" style="padding:80px 0;display:none">
+<section id="maquete">
+<img alt="" aria-hidden="true" class="leaf-decor" src="images/palm-leaf.png"/>
 <div class="container">
-<div class="obra-card rv" style="max-width:720px;margin:0 auto">
+<div class="mq-grid">
+<div class="mq-photo rvl">
+<img alt="Maquete do Green Park Resort no plantão de vendas da Engefor" data-admin-key="maquete-photo" loading="lazy" src="images/maquete-engefor.jpg"/>
+</div>
+<div class="mq-txt rvr">
+<p class="s-tag s-tag-dk">Visite pessoalmente</p>
+<h2 class="s-h">Conheça a maquete<br/>e o <em>apartamento decorado</em></h2>
+<p class="s-p">A maquete do Green Park Resort está exposta no plantão de vendas da Engefor. Venha ver de perto a implantação, as torres e toda a área de lazer, e aproveite para conhecer o apartamento decorado.</p>
+<div class="mq-addr">
+<svg viewbox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<div><strong>Onde visitar</strong><span>Alameda do Horto, 714, Caguaçu, Sorocaba/SP<br/>Segunda à Sábado, das 08h às 18h</span></div>
+</div>
+<div class="mq-actions">
+<a class="btn btn-terra" href="https://wa.me/5515998971515?text=Quero%20agendar%20uma%20visita%20ao%20decorado%20e%20conhecer%20a%20maquete%20do%20Green%20Park%20Resort." rel="noopener" target="_blank">Agendar visita ao decorado</a>
+<a class="mq-link" href="https://www.google.com/maps?q=-23.4460862,-47.4980125" rel="noopener" target="_blank">Ver no Google Maps</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="video-emp">
+<div class="container">
+<div class="vd-grid">
+<div class="vd-player rvl">
+<video controls playsinline poster="images/video-decorado-poster.jpg" preload="metadata">
+<source src="videos/green-park-decorado.mp4" type="video/mp4"/>
+</video>
+</div>
+<div class="vd-txt rvr">
+<p class="s-tag">O empreendimento</p>
+<h2 class="s-h">Um tour pelo<br/><em>Green Park Resort</em></h2>
+<p class="s-p">Percorra o apartamento decorado e veja os acabamentos, a distribuição dos ambientes e o padrão de entrega da Engefor. Depois, venha conhecer a maquete completa do condomínio no plantão de vendas.</p>
+<div class="vd-addr">
+<svg viewbox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<div><strong>Plantão de vendas</strong><span>Alameda do Horto, 714, Caguaçu, Sorocaba/SP<br/>Segunda à Sábado, das 08h às 18h</span></div>
+</div>
+<div class="vd-actions">
+<a class="btn btn-terra" href="https://wa.me/5515998971515?text=Quero%20agendar%20uma%20visita%20ao%20decorado%20e%20conhecer%20a%20maquete%20do%20Green%20Park%20Resort." rel="noopener" target="_blank">Quero visitar a maquete</a>
+<a class="btn btn-outline-light btn-no-glow" href="https://wa.me/5515998971515?text=Quero%20saber%20mais%20sobre%20o%20*Green%20Park%20Resort,*%20por%20favor!" rel="noopener" target="_blank">Falar com um consultor</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- REATIVADA (06/08/2026): seção de andamento da obra com área de fotos do canteiro (slots ainda vazios). -->
+<section id="obra" style="padding:80px 0">
+<div class="container">
+<div class="obra-card rv" style="max-width:1060px;margin:0 auto">
 <p class="s-tag">Transparência total</p>
 <h2 class="s-h">Acompanhe o andamento<br/>da obra <em>— Módulo 1</em></h2>
+<div class="obra-grid">
+<div class="obra-col-bars">
 <div class="obra-bars">
 <div class="obra-bar-row">
 <span class="obar-label">Fundação</span>
@@ -3035,6 +3157,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 <p class="obra-note">Percentuais de acordo com o cronograma da obra. Fotos do canteiro serão atualizadas mensalmente pela equipe de obra.</p>
 <a class="btn btn-terra" href="https://wa.me/5515998971515?text=Quero%20saber%20como%20est%C3%A1%20o%20andamento%20da%20obra%20do%20Green%20Park%20Resort." rel="noopener" target="_blank">Falar sobre a obra no WhatsApp</a>
+</div>
+<div class="obra-col-photos">
+<span class="obra-photos-label">Fotos do canteiro</span>
+<div class="obra-photos">
+<div class="obra-photo-slot" data-admin-key="obra-foto-1"><svg viewbox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"></path><circle cx="12" cy="13" r="4"></circle></svg><span>Foto em breve</span></div>
+<div class="obra-photo-slot" data-admin-key="obra-foto-2"><svg viewbox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"></path><circle cx="12" cy="13" r="4"></circle></svg><span>Foto em breve</span></div>
+<div class="obra-photo-slot" data-admin-key="obra-foto-3"><svg viewbox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"></path><circle cx="12" cy="13" r="4"></circle></svg><span>Foto em breve</span></div>
+<div class="obra-photo-slot" data-admin-key="obra-foto-4"><svg viewbox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3z"></path><circle cx="12" cy="13" r="4"></circle></svg><span>Foto em breve</span></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
