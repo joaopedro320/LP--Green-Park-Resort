@@ -48,3 +48,88 @@ Rodada de correções (5):
 
 Rodada de correções (6):
 - Corrigido o motivo do sticky não funcionar: a seção #plantas tinha um "overflow: hidden" no CSS (sobra de uma versão anterior, sem nenhuma decoração usando mais isso). Esse overflow:hidden é uma causa clássica de position:sticky não funcionar em elementos filhos. Removido — agora o card da planta acompanha o scroll de verdade.
+
+========================================================
+Rodada de correções (7) — ajuste de tipologia + performance
+========================================================
+
+AJUSTE PEDIDO PELA CLIENTE
+- Adicionada a opção "2 dorms com garden" no seletor de Tipologia dos DOIS
+  formulários (o do hero e o do "Seu momento é agora").
+- No formulário final, "Ver as duas opções" virou "Ver todas as opções",
+  já que agora são três tipologias.
+- ATENÇÃO: o mesmo ajuste precisa ser replicado no site da Engefor
+  (WordPress / Turbo Cloud), que não faz parte deste pacote.
+
+OTIMIZAÇÃO DE PESO E VELOCIDADE
+Peso do primeiro carregamento: ~9,8 MB  ->  ~529 KB  (95% menor)
+Pasta de imagens:              20 MB    ->  3,9 MB
+index.html:                    709 KB   ->  160 KB
+
+O que foi feito:
+1. As 5 máscaras decorativas de folha estavam embutidas em base64 dentro do
+   CSS (565 KB dentro do próprio HTML, baixados antes de qualquer pixel
+   aparecer na tela). Foram extraídas para images/decor/*.webp.
+2. Causa principal da lentidão: as folhas decorativas (form-final-leaf-left,
+   form-final-leaf-right, palm-leaf, palm-leaf-new) somavam 7,9 MB em PNG e
+   estavam SEM loading="lazy", ou seja, o navegador baixava tudo isso já no
+   carregamento inicial, antes de mostrar a página. Agora estão em WebP
+   redimensionado (211 KB as maiores) e com lazy load.
+3. Todas as imagens convertidas para WebP, redimensionadas para o tamanho em
+   que realmente aparecem na tela. Plantas e mapa de implantação mantidos em
+   alta resolução (o lightbox continua nítido).
+4. Todas as <img> agora têm width/height reais (evita o layout "pulando"
+   enquanto carrega, que conta como CLS no PageSpeed), loading="lazy" e
+   decoding="async".
+5. Adicionado preconnect/dns-prefetch para googletagmanager e connect.facebook.net
+   e preload da imagem de fundo do hero.
+6. Vídeos agora com preload="none" nos dois (antes o decorado estava em
+   "metadata" e já puxava dados sem o usuário pedir). Os arquivos em si foram
+   mantidos: já estão bem compactados e com faststart, e por serem preload="none"
+   não pesam no carregamento da página.
+7. Removidos 90 arquivos de imagem que não eram usados em lugar nenhum
+   (duplicatas em images/condicoes/, images/plantas/, images/decorative/, etc.)
+   e o arquivo park-residence-index.html (4,4 MB, versão antiga).
+8. Criada images/fachada.jpg (1200x630). A og:image e a twitter:image
+   apontavam para esse arquivo, mas ele não existia no pacote — ou seja, o
+   link compartilhado no WhatsApp/Facebook saía sem imagem de preview.
+
+PENDÊNCIA IMPORTANTE (fora do meu alcance neste pacote)
+- O CSS carrega a fonte Nexa de fonts/Nexa-*.otf, mas a pasta fonts/ não veio
+  no ZIP. São 5 requisições que dão 404. Se a pasta existir no servidor, é só
+  ignorar. Se não existir, a página está renderizando na fonte padrão do
+  sistema, não na Nexa. Vale conferir no deploy.
+- Sugestão: converter as fontes de .otf para .woff2 (costuma ficar 60-70%
+  menor e é o formato que os navegadores realmente preferem).
+
+========================================================
+Rodada de correções (8) — reversão das plantas + mobile
+========================================================
+
+PLANTAS — REVERTIDO
+Na rodada 7 eu tinha adicionado width/height/decoding nas <img> das plantas
+junto com todas as outras imagens. Isso brigou com o "aspect-ratio: 16/9" que
+já existia no CSS de .pt-panel img e desalinhou o carrossel.
+As 6 <img> das plantas voltaram a ter EXATAMENTE os atributos originais
+(só o src mudou de .jpg para .webp). Comparei o carrossel renderizado antes e
+depois, em 390px e em 1280px: está idêntico ao original.
+
+MOBILE — BOTÃO FORA DO LUGAR (corrigido)
+Causa: a classe .btn tem "white-space: nowrap" com letter-spacing de .14em.
+Rótulos longos ficavam mais largos que a própria tela e vazavam para fora do
+container. Os casos encontrados:
+
+  "VISITE O DECORADO E CONHEÇA A MAQUETE"  -> 407px de largura numa tela de
+      360px. Sobrava para fora dos dois lados e o texto ficava cortado.
+  "FALAR SOBRE A OBRA NO WHATSAPP"         -> passava da borda direita.
+  "GARANTIR CONDIÇÕES DE LANÇAMENTO"       -> texto estourava o próprio botão
+      no formulário do hero.
+
+Correção: bloco novo de CSS no fim da folha de estilo, só em @media.
+Abaixo de 900px os .btn passam a quebrar linha, ficam centralizados e
+respeitam max-width:100%. Abaixo de 480px a fonte, o padding e o
+letter-spacing diminuem um pouco e os CTAs dos formulários ocupam a largura
+útil. Desktop não foi tocado (as regras são todas max-width).
+
+Testado em 320, 360, 375, 390, 414, 430 e 768px: nenhum elemento passa da
+borda e não há mais rolagem lateral em nenhuma dessas larguras.
