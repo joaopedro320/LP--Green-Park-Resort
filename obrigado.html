@@ -95,11 +95,18 @@ footer img{height:40px;width:auto;margin:0 auto 14px}
 <p class="ft-dev">Desenvolvido por <a href="https://www.instagram.com/qh4growth/" rel="noopener" target="_blank">QH4 Growth</a></p>
 </div>
 </footer>
-<!-- [QH4 SLOT 6] Eventos do dataLayer: /assets/js/tracking.js dispara thank_you_view (carregado no head) -->
+<!-- [QH4 SLOT 6] Eventos do dataLayer: /assets/js/tracking.js (carregado no head) -->
 <!-- [/QH4 SLOT 6] -->
 <!-- [QH4 SLOT 7] Scripts de terceiros -->
 <!-- [/QH4 SLOT 7] -->
 <!-- [QH4 SLOT 8] Conversão -->
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  event: 'thank_you_view',
+  lead_origem: (/[?&]origem=([^&]+)/.exec(location.search) || [])[1] || ''
+});
+</script>
 <!-- A conversão padrão é o evento "thank_you_view" (dataLayer). No GTM, crie as tags
      de conversão (Google Ads / Meta Lead) a partir dele. Se preferir disparar direto
      aqui, cole o snippet abaixo deste comentário (cuidado para não duplicar com o GTM). -->
