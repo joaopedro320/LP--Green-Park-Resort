@@ -1,0 +1,16 @@
+{
+  "name": "Green Park Resort | Apartamentos em Sorocaba",
+  "short_name": "Green Park",
+  "description": "Apartamentos de 2 quartos em condomínio resort na Zona Norte de Sorocaba.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "lang": "pt-BR",
+  "theme_color": "#33241A",
+  "background_color": "#F0EBE4",
+  "icons": [
+    { "src": "/images/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/images/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/images/icon-192.png", "sizes": "192x192", "type": "image/png" }
+  ]
+}

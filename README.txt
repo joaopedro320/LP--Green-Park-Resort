@@ -133,3 +133,25 @@ letter-spacing diminuem um pouco e os CTAs dos formulários ocupam a largura
 
 Testado em 320, 360, 375, 390, 414, 430 e 768px: nenhum elemento passa da
 borda e não há mais rolagem lateral em nenhuma dessas larguras.
+
+========================================================
+Rodada de correções (9) — relatório LIA & IVO (nota 67)
+========================================================
+- Travessões: removidos todos do index (texto, alt, title, meta, JSON-LD e comentários).
+- robots.txt, sitemap.xml e site.webmanifest criados na raiz.
+- obrigado.html (noindex) e 404.html criados com o visual da LP.
+  Fluxo do formulário: salva o lead (Sheets via sendBeacon + CVCRM com keepalive)
+  -> /obrigado.html?origem=hero|final -> WhatsApp em 4s.
+- Corrigido bug: o formulário final usava a variável "email" sem declarar, o que
+  derrubava o envio para o CVCRM desse formulário.
+- assets/js/tracking.js: whatsapp_click, form_start, generate_lead, thank_you_view.
+- Slots [QH4 SLOT 1 a 8] em index, obrigado e 404.
+- Rodapé "Desenvolvido por QH4 Growth" (link do Instagram: CONFERIR o @ correto).
+- Title, meta description, og/twitter e H1 com nicho + cidade.
+- Canonical/og:url/JSON-LD agora apontam para https://www.greenparkresort.com.br/
+  (antes apontavam para parkresidence.com.br).
+- Imagens recomprimidas (lazer 1200px, plantas 1600px, folhas 720px): ~3,2 MB -> ~2,3 MB.
+  Favicons redimensionados para o tamanho real (eram 350x350).
+- width/height reais em todas as <img>, inclusive plantas (com .pt-panel img{height:auto}
+  para não repetir o problema da rodada 8).
+- Removidos os 5 @font-face da Nexa: a pasta fonts/ não existe e eram 5 requisições 404.
