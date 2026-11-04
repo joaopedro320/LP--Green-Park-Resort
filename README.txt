@@ -155,3 +155,14 @@ Rodada de correções (9) — relatório LIA & IVO (nota 67)
 - width/height reais em todas as <img>, inclusive plantas (com .pt-panel img{height:auto}
   para não repetir o problema da rodada 8).
 - Removidos os 5 @font-face da Nexa: a pasta fonts/ não existe e eram 5 requisições 404.
+
+========================================================
+Rodada de correções (10): relatório LIA & IVO (nota 89)
+========================================================
+- Peso: imagens recodificadas a partir dos originais .jpg/.png (lazer 1200px q62,
+  plantas e implantação 1400px, folhas decorativas 540px). Removidas 5 <img> que
+  estavam escondidas por CSS (marcas d'água e folhas com display:none) mas eram baixadas.
+- dataLayer: pushes literais window.dataLayer.push({ event: '...' }); código inline
+  no index (SLOT 6) e thank_you_view inline no SLOT 8 do obrigado.html.
+- Alts de logos com cidade; lightboxes com src real (mesmo arquivo da 1ª imagem, já em cache).
+- Requisições: removidos dns-prefetch duplicados e o tracking.js externo do index.
